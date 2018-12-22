@@ -9,4 +9,4 @@
 
 /* Function Declarations */
 
-void initNcurses();
+int initNcurses();
