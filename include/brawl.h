@@ -1,10 +1,15 @@
 #ifndef BRAWL_H
 #define BRAWL_H
-#endif
-
 #include <ncurses.h>
 
+
 /* Declarations for data types  */
+
+typedef struct Coordinates
+{
+    int x;
+    int y;
+} Coordinates;
 
 typedef struct Windows
 {
@@ -23,3 +28,5 @@ int initNcurses();
 Windows * drawBorders();
 int checkTermSize();
 int refreshWindows(Windows * newWindows);
+
+#endif
