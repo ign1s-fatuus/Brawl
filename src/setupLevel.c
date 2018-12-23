@@ -1,5 +1,6 @@
 #include "brawl.h"
 #include "level.h"
+#include "build_bar.h"
 #include <time.h>
 #include <stdlib.h>
 #include <ncurses.h>
@@ -25,6 +26,8 @@ Level * generateLevel(Level * newLevel, int levelNumber)
     newLevel->levelWidth = 140;
 
     newLevel->bar = generateBar(newLevel);
+    newLevel->levelMask = createLevelMask(newLevel);
+    newLevel->levelMask = addBarMask(newLevel);
     
     return newLevel;
 }
@@ -82,7 +85,7 @@ Bar * generateBar(Level * newLevel)
             break;
     }
     newBar->start_pos.y = ((newLevel->levelHeight - newBar->buildingHeight) / 2);
-    newBar->start_pos.x = ((newLevel->levelWidth - newBar->buildingHeight) / 2);
+    newBar->start_pos.x = ((newLevel->levelWidth - newBar->buildingWidth) / 2);
     
     return newBar;
 }
@@ -101,9 +104,9 @@ int ** createLevelMask(Level * newLevel)
         for (x = 0; x < newLevel->levelWidth; x++)
         {
             levelMask[y][x] = 0;
-            printw("%d",levelMask[y][x]);
+            //printw("%d",levelMask[y][x]);
         }
-        printw("\n");
+        //printw("\n");
     }
     newLevel->levelMask = levelMask;
 

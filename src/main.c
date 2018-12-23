@@ -6,6 +6,7 @@
 #include "level.h"
 
 int printData(Level * newLevel);
+int testPrintMask(Level * newLevel);
 
 int main()
 {
@@ -21,7 +22,8 @@ int main()
     //gameWindows = drawBorders();
     //refreshWindows(gameWindows);
     
-    printData(newLevel);
+    //printData(newLevel);
+    testPrintMask(newLevel);
     getch();
 
     endwin();
@@ -43,5 +45,19 @@ int printData(Level * newLevel)
     printw("Number of windows: %d\n",newLevel->bar->numOfWindows);
     printw("Number of activity areas: %d\n",newLevel->bar->numOfActAreas);
 
+    return 0;
+}
+
+int testPrintMask(Level * newLevel)
+{
+    int x, y;
+    for (y = 0; y < newLevel->levelHeight; y++)
+    {
+        for (x = 0; x < newLevel->levelWidth; x++)
+        {
+            printw("%d",newLevel->levelMask[y][x]);
+        }
+        printw("\n");
+    }
     return 0;
 }
