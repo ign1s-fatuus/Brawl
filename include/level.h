@@ -14,9 +14,16 @@ typedef struct Level
     int numOfEntrances;     // number of doors leading into the bar
     int numOfWindows;       // number of windows
     int numOfActAreas;      // number of activity areas; i.e. tables and seeating, dart boards, arcade
+
+    int ** levelMask;       // data map of game area
 } Level;
+
+/*typedef struct LevelMask
+{
+    int maskArray[50][200];
+} LevelMask;*/
 
 
 /* Dclaration of functions */
 Level * generateLevel(Level * newLevel, int levelNumber);
-int createLevelMask(Level * newLevel);
+int ** createLevelMask(Level * newLevel);

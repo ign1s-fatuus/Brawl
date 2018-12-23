@@ -14,12 +14,13 @@ int main()
     Level * newLevel;
     newLevel = malloc(sizeof(Level));
     newLevel = generateLevel(newLevel, 1);
+
+    newLevel->levelMask = createLevelMask(newLevel); 
     
-    Windows * gameWindows = malloc(sizeof(Windows));
-    gameWindows = drawBorders();
-
-    refreshWindows(gameWindows);
-
+    //Windows * gameWindows = malloc(sizeof(Windows));
+    //gameWindows = drawBorders();
+    //refreshWindows(gameWindows);
+    
     getch();
 
     endwin();

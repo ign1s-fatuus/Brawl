@@ -45,9 +45,25 @@ Level * generateLevel(Level * newLevel, int levelNumber)
 
 
 /* Generate the leval mask to store data for map elements  */
-int createLevelMask(Level * newLevel)
+int ** createLevelMask(Level * newLevel)
 {
+    int ** levelMask;
+    int maxHieght, maxWidth;
+    maxHieght = 40;
+    maxWidth = 150;
+    levelMask = malloc(sizeof(int *) * maxHieght);
 
-    return 0;
+    int x, y;
+    for (y = 0; y < maxHieght; y++)
+    {
+        levelMask[y] = malloc(sizeof(int *) * maxWidth);
+        for (x = 0; x < maxWidth; x++)
+        {
+            levelMask[y][x] = 0;
+        }
+    }
+    newLevel->levelMask = levelMask;
+
+    return levelMask;
 }
 
