@@ -1,6 +1,7 @@
 #include "brawl.h"
 #include "build_bar.h"
 #include "level.h"
+#include "string.h"
 
 /* Add the bar to the level mask along with any other structural features  */
 
@@ -32,29 +33,34 @@ typedef struct Bar
 } Bar;
 */
 
-int ** addBarMask(Level * newLevel)
+Tile ** addBarMask(Level * newLevel)
 {
         newLevel->levelMask = addBarWalls(newLevel);
 
         return newLevel->levelMask;
 }
 
-int ** addBarWalls(Level * newLevel)
+Tile ** addBarWalls(Level * newLevel)
 {
     int y, x;
+    
     /* Build top and bottom  */
     for (x = newLevel->bar->start_pos.x; x < newLevel->bar->start_pos.x + newLevel->bar->buildingWidth; x++)
     {
-        newLevel->levelMask[newLevel->bar->start_pos.y][x] = 1;
-        newLevel->levelMask[newLevel->bar->start_pos.y + newLevel->bar->buildingHeight - 1][x] = 1;
+        strcpy(newLevel->levelMask[newLevel->bar->start_pos.y][x].maskID, "W");
+        strcpy(newLevel->levelMask[newLevel->bar->start_pos.y + newLevel->bar->buildingHeight - 1][x].maskID, "W");
     }
 
     /* Build side and fill in middle  */
     for (y = newLevel->bar->start_pos.y + 1; y < newLevel->bar->start_pos.y + newLevel->bar->buildingHeight -1; y++)
     {
-        newLevel->levelMask[y][newLevel->bar->start_pos.x] = 2;
-        newLevel->levelMask[y][newLevel->bar->start_pos.x + newLevel->bar->buildingWidth - 1] = 2;
-    
+        strcpy(newLevel->levelMask[y][newLevel->bar->start_pos.x].maskID, "W");
+        strcpy(newLevel->levelMask[y][newLevel->bar->start_pos.x + newLevel->bar->buildingWidth - 1].maskID, "W");
     }
     return newLevel->levelMask;
 }
+
+/*Tile ** cornerDection()
+{
+
+}*/

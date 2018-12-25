@@ -7,6 +7,6 @@
 
 /* Declaration of functions  */
 
-int ** addBarMask(Level * newLevel); 
-int ** addBarWalls(Level * newLevel);
+Tile ** addBarMask(Level * newLevel); 
+Tile ** addBarWalls(Level * newLevel);
 #endif

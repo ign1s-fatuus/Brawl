@@ -55,9 +55,9 @@ int testPrintMask(Level * newLevel)
     {
         for (x = 0; x < newLevel->levelWidth; x++)
         {
-            printw("%d",newLevel->levelMask[y][x]);
+            mvprintw( y, x,"%s",newLevel->levelMask[y][x].maskID);
+            //getch();
         }
-        printw("\n");
     }
     return 0;
 }

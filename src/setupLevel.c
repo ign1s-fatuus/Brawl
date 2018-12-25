@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <ncurses.h>
 #include <curses.h>
+#include <string.h>
 
 /* setupLevel -- functions for creating various levels  */
 
@@ -91,25 +92,23 @@ Bar * generateBar(Level * newLevel)
 }
 
 /* Generate the leval mask to store data for map elements  */
-int ** createLevelMask(Level * newLevel)
+Tile ** createLevelMask(Level * newLevel)
 {
-    int ** levelMask;
-    
-    levelMask = malloc(sizeof(int *) * newLevel->levelHeight);
+    Tile ** levelMask;
 
     int x, y;
+    levelMask = (Tile **) malloc(sizeof(Tile) * newLevel->levelHeight);
     for (y = 0; y < newLevel->levelHeight; y++)
     {
-        levelMask[y] = malloc(sizeof(int *) * newLevel->levelWidth);
+        levelMask[y] = (Tile **)malloc(sizeof(Tile) * newLevel->levelWidth);
         for (x = 0; x < newLevel->levelWidth; x++)
         {
-            levelMask[y][x] = 0;
-            //printw("%d",levelMask[y][x]);
+            strcpy(levelMask[y][x].maskID, "e");
+            //mvprintw(y,x,"%s",levelMask[y][x].maskID);
+            //getch();
         }
-        //printw("\n");
     }
-    newLevel->levelMask = levelMask;
-
+    //newLevel->levelMask = levelMask;
     return levelMask;
 }
 

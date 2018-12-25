@@ -14,7 +14,7 @@ typedef struct Level
     int barSize;            // 0 = small, 1 = medium, 2 = large --> size of bar building
     int barClass;           // dive bar, biker bar, gay bar, etc.
 
-    int ** levelMask;       // data map of game area
+    struct Tile ** levelMask;       // data map of game area
     struct Bar * bar;
 } Level;
 
@@ -31,10 +31,24 @@ typedef struct Bar
     int buildingWidth;
 } Bar;
 
+typedef struct Tile
+{
+    char name[10];
+    char description[100];
+    char maskID[1];
+    char buildID[6];
+    char tileType[6];
+    char tileSubType[6];
+    char symbol[1];
+    char symbolDest[1];
+    int health;
+    bool destructable;
+    bool flammable;
+} Tile;
 
 /* Dclaration of functions */
 Level * generateLevel(Level * newLevel, int levelNumber);
-int ** createLevelMask(Level * newLevel);
+Tile ** createLevelMask(Level * newLevel);
 Bar * generateBar(Level * newLevel);
 
 #endif

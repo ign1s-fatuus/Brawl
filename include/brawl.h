@@ -1,7 +1,7 @@
 #ifndef BRAWL_H
 #define BRAWL_H
 #include <ncurses.h>
-
+#include <stdbool.h>
 
 /* Declarations for data types  */
 
