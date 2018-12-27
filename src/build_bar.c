@@ -45,17 +45,17 @@ Tile ** addBarWalls(Level * newLevel)
     int y, x;
     
     /* Build top and bottom  */
-    for (x = newLevel->bar->start_pos.x; x < newLevel->bar->start_pos.x + newLevel->bar->buildingWidth; x++)
+    for (x = newLevel->bar->start_pos.x; x <= newLevel->bar->start_pos.x + newLevel->bar->buildingWidth; x++)
     {
-        strcpy(newLevel->levelMask[newLevel->bar->start_pos.y][x].maskID, "W");
-        strcpy(newLevel->levelMask[newLevel->bar->start_pos.y + newLevel->bar->buildingHeight - 1][x].maskID, "W");
+        strcpy(newLevel->levelMask[newLevel->bar->start_pos.y][x].building->maskID, "W");
+        strcpy(newLevel->levelMask[newLevel->bar->start_pos.y + newLevel->bar->buildingHeight - 1][x].building->maskID, "W");
     }
 
     /* Build side and fill in middle  */
     for (y = newLevel->bar->start_pos.y + 1; y < newLevel->bar->start_pos.y + newLevel->bar->buildingHeight -1; y++)
     {
-        strcpy(newLevel->levelMask[y][newLevel->bar->start_pos.x].maskID, "W");
-        strcpy(newLevel->levelMask[y][newLevel->bar->start_pos.x + newLevel->bar->buildingWidth - 1].maskID, "W");
+        strcpy(newLevel->levelMask[y][newLevel->bar->start_pos.x].building->maskID, "W");
+        strcpy(newLevel->levelMask[y][newLevel->bar->start_pos.x + newLevel->bar->buildingWidth].building->maskID, "W");
     }
     return newLevel->levelMask;
 }
