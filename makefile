@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -lncurses -I$(IDIR)
+CFLAGS = -lm -lncurses -I$(IDIR)
 
 
 IDIR = ./include/

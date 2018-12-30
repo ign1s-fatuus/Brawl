@@ -1,0 +1,41 @@
+0 Desert
+---------
+P1 cacti
+P2 bush
+G1 sand
+G2 dirt
+
+1 Forest
+---------
+P1 tree
+P2 bush
+G1 Dirt
+G2 grass
+
+2 Tundra
+---------
+P1 boulder
+P2 bush
+G1 snow
+G2 dirt
+
+3 Prairie
+---------
+P1 Bush
+P2 tree
+G1 grass
+G2 dirt
+
+4 Swamp
+---------
+P1 Bush
+P2 tree
+G1 bog
+G2 grass
+
+5 Mountain
+----------
+P1 Boulder
+P2 tree
+G1 dirt
+G2 grass

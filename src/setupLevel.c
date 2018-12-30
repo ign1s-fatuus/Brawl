@@ -6,6 +6,7 @@
 #include <ncurses.h>
 #include <curses.h>
 #include <string.h>
+#include "perlin.h"
 
 /* setupLevel -- functions for creating various levels  */
 
@@ -22,11 +23,11 @@ Level * generateLevel(Level * newLevel, int levelNumber)
     newLevel->levelNumber = levelNumber;                //FIX THIS
 
     newLevel->levelSize = (rand() % 3);        // 0=small; 1=med; 2=lrg
-    newLevel->levelHeight = 40;
-    newLevel->levelWidth = 140;
 
-    newLevel = generateRandom(newLevel, 50);
+    newLevel = generateBiome(newLevel);
+    newLevel = generateTerrain(newLevel);
     newLevel = generateBar(newLevel);
+    newLevel = generateHeightMap(newLevel);
     newLevel->levelMask = addBarMask(newLevel);
     
     return newLevel;
@@ -87,7 +88,33 @@ Level * generateBar(Level * newLevel)
     return newLevel;
 }
 
-Level * generateRandom(Level * newLevel, int percentCover)
+Level * generateHeightMap(Level * newLevel)
+{
+    int y, x;
+    double tempArray[newLevel->levelHeight + 1][newLevel->levelWidth + 1];
+    
+    int rndSeed = (rand() % (99999 + 1 - 10000) + 10000);
+
+    for(y = 0; y <= newLevel->levelHeight; y++) 
+    {
+        for(x = 0; x <= newLevel->levelWidth; x++) 
+        {
+            tempArray[y][x] = pnoise2d(x * newLevel->perlinFreq, y * newLevel->perlinFreq, newLevel->perlinPersist, 8, rndSeed);
+            //tempArray[y][x] = pnoise2d(x * 0.07, y * 0.07, 0.7, 8, rndSeed);
+            //printw("%f", tempArray[y][x]);
+            //getch();
+            newLevel->levelMask[y][x].terrain->height = (int)((tempArray[y][x] + 1) * 4);
+            if(newLevel->levelMask[y][x].terrain->height < 0)
+                newLevel->levelMask[y][x].terrain->height = 0;
+            if(newLevel->levelMask[y][x].terrain->height > 9)
+                newLevel->levelMask[y][x].terrain->height = 9;
+        }
+    }
+
+    return newLevel;
+}
+
+Level * generateBiome(Level * newLevel)
 {
     int i, y, x, rndY, rndX, counter, counterMax, rndDir, rndSeedPts;
     counterMax = ((newLevel->biomeDensity * .01) * (newLevel->levelWidth * newLevel->levelHeight));
@@ -99,7 +126,7 @@ Level * generateRandom(Level * newLevel, int percentCover)
         rndY = (rand() % newLevel->levelHeight);
         rndX = (rand() % newLevel->levelWidth);
         //newLevel->levelMask[rndY][rndX].tileContents->envmnt = true;      //######## FIX THIS #########
-        strcpy(newLevel->levelMask[rndY][rndX].world->maskID, "B"); 
+        newLevel = updateBiome(rndY, rndX, true, newLevel);
     }
     /*  0 1 2
      *  7 R 3
@@ -113,90 +140,370 @@ Level * generateRandom(Level * newLevel, int percentCover)
             {
                 if (strcmp(newLevel->levelMask[y][x].world->maskID, "B") == 0)
                 {
-                    mvprintw(0, newLevel->levelWidth + 4, "%d", counter);
                     rndDir = (rand() % 8);
                     switch(rndDir)
                     {
                         case 0:  
                             if(((y - 1) >= 0) && ((x - 1 ) >= 0) && (strcmp(newLevel->levelMask[y - 1][x - 1].world->maskID, "B") != 0))
                             {
-                                strcpy(newLevel->levelMask[y-1][x-1].world->maskID, "B"); 
-                                strcpy(newLevel->levelMask[y-1][x-1].world->biome, newLevel->levelBiome); 
+                                newLevel = updateBiome(y - 1, x - 1, true, newLevel);
                                 counter++;
-                                //mvprintw(y-1,x-1,"X");
                             }
                         case 1:
                             if(((y - 1) >= 0) && (strcmp(newLevel->levelMask[y - 1][x].world->maskID, "B") != 0))
                             {
-                                strcpy(newLevel->levelMask[y-1][x].world->maskID, "B"); 
-                                strcpy(newLevel->levelMask[y-1][x].world->biome, newLevel->levelBiome); 
+                                newLevel = updateBiome(y - 1, x, true, newLevel);
                                 counter++;
-                                //mvprintw(y-1,x,"X");
                             }
                             break;
                         case 2:
                             if(((y - 1) >= 0) && ((x + 1 ) <= newLevel->levelWidth) && (strcmp(newLevel->levelMask[y - 1][x + 1].world->maskID, "B") != 0))
                             {
-                                strcpy(newLevel->levelMask[y-1][x+1].world->maskID, "B"); 
-                                strcpy(newLevel->levelMask[y-1][x+1].world->biome, newLevel->levelBiome); 
+                                newLevel = updateBiome(y - 1, x + 1, true, newLevel);
                                 counter++;
-                                //mvprintw(y-1,x+1,"X");
                             }
                             break;
                         case 3:
                             if(((x + 1 ) <= newLevel->levelWidth) && (strcmp(newLevel->levelMask[y][x + 1].world->maskID, "B") != 0))
                             {
-                                strcpy(newLevel->levelMask[y][x+1].world->maskID, "B"); 
-                                strcpy(newLevel->levelMask[y][x+1].world->biome, newLevel->levelBiome); 
+                                newLevel = updateBiome(y, x + 1, true, newLevel);
                                 counter++;
-                                //mvprintw(y,x+1,"X");
                             }
                             break;
                         case 4:
-                            if(((y + 1) >= newLevel->levelHeight) && ((x + 1 ) <= newLevel->levelWidth) && (strcmp(newLevel->levelMask[y + 1][x + 1].world->maskID, "B") != 0))
+                            if(((y + 1) <= newLevel->levelHeight) && ((x + 1 ) <= newLevel->levelWidth) && (strcmp(newLevel->levelMask[y + 1][x + 1].world->maskID, "B") != 0))
                             {
-                                strcpy(newLevel->levelMask[y+1][x+1].world->maskID, "B"); 
-                                strcpy(newLevel->levelMask[y+1][x+1].world->biome, newLevel->levelBiome); 
+                                newLevel = updateBiome(y + 1, x + 1, true, newLevel);
                                 counter++;
-                                //mvprintw(y+1,x+1,"X");
                             }
                             break;
                         case 5:
                             if(((y + 1) >= newLevel->levelHeight) && (strcmp(newLevel->levelMask[y + 1][x].world->maskID, "B") != 0))
                             {
-                                strcpy(newLevel->levelMask[y+1][x].world->maskID, "B"); 
-                                strcpy(newLevel->levelMask[y+1][x].world->biome, newLevel->levelBiome); 
+                                newLevel = updateBiome(y + 1, x, true, newLevel);
                                 counter++;
-                                //mvprintw(y+1,x,"X");
                             }
                             break;
                         case 6:
                             if(((y + 1) >= newLevel->levelHeight) && ((x - 1 ) >= 0) && (strcmp(newLevel->levelMask[y + 1][x - 1].world->maskID, "B") != 0))
                             {
-                                strcpy(newLevel->levelMask[y+1][x-1].world->maskID, "B"); 
-                                strcpy(newLevel->levelMask[y+1][x-1].world->biome, newLevel->levelBiome); 
+                                newLevel = updateBiome(y + 1, x - 1, true, newLevel);
                                 counter++;
-                                //mvprintw(y+1,x-1,"X");
                             }
                             break;
                         case 7:
                             if(((x - 1 ) >= 0) && (strcmp(newLevel->levelMask[y][x - 1].world->maskID, "B") != 0))
                             {
-                                strcpy(newLevel->levelMask[y][x-1].world->maskID, "B"); 
-                                strcpy(newLevel->levelMask[y][x-1].world->biome, newLevel->levelBiome); 
+                                newLevel = updateBiome(y, x - 1, true, newLevel);
                                 counter++;
-                                //mvprintw(y,x-1,"X");
                             }
                             break;
                         default:
                             break;
                     }
-                    //getch();
                 }
             }
         }
     }
     return newLevel;
+}
+
+Level * updateBiome(int y, int x, bool hasBiome, Level * newLevel)
+{
+    if(hasBiome)
+    {
+        strcpy(newLevel->levelMask[y][x].world->maskID, "B");
+        strcpy(newLevel->levelMask[y][x].world->biome, newLevel->levelBiome);
+        newLevel->levelMask[y][x].tileContents->biome = true;
+    }
+    else
+    {
+        strcpy(newLevel->levelMask[y][x].world->maskID, "\0");
+        strcpy(newLevel->levelMask[y][x].world->biome, "\0");
+        newLevel->levelMask[y][x].tileContents->biome = false;
+    }
+    return newLevel;
+}
+
+Level * generateTerrain(Level * newLevel)
+{
+    int y, x, counter, counterPriTrnObj, counterSecTrnObj, counterPriTrn, counterSecTrn, biomeCount;
+    counter = 0;
+
+    biomeCount = ((newLevel->biomeDensity * .01) * (newLevel->levelWidth * newLevel->levelHeight));
+    
+    counterPriTrnObj = ((newLevel->envPriTrnObjDensity * .01) * biomeCount);
+    counterSecTrnObj = ((newLevel->envSecTrnObjDensity * .01) * biomeCount);
+    counterPriTrn = ((newLevel->envPriTrnDensity * .01) * biomeCount);
+    counterSecTrn = ((newLevel->envSecTrnDensity * .01) * biomeCount);
+    
+
+    /* Generate Primary Terrain */
+    while(counter <= counterPriTrn)
+    {
+        for(y = 0; y <= newLevel->levelHeight; y++)
+        {
+            for(x = 0; x <= newLevel->levelWidth; x++)
+            {
+                if(!(rand() % 5) && (newLevel->levelMask[y][x].tileContents->biome) && (!newLevel->levelMask[y][x].tileContents->terrain) && (counter <= counterPriTrn))
+                {
+                    mvprintw(y, x, "P");
+                    mvprintw(1, newLevel->levelWidth + 4, "biome density is: %d", biomeCount);
+                    mvprintw(2, newLevel->levelWidth + 4, "Primary Terrain");
+                    mvprintw(3, newLevel->levelWidth + 4, "Counter Max is: %d", counterPriTrn);
+                    mvprintw(4, newLevel->levelWidth + 4, "Exit count is: %d", counter);
+                    switch(newLevel->levelBiomeID)
+                    {
+                        case 0:     // desert
+                            newLevel = updateTerrain(y, x, true, 1003, newLevel);   // sand
+                            counter++;
+                            break;
+                        case 1:     // forest
+                            newLevel = updateTerrain(y, x, true, 1001, newLevel);   // dirt
+                            counter++;
+                            break;
+                        case 2:     // tundra
+                            newLevel = updateTerrain(y, x, true, 1004, newLevel);   // snow
+                            counter++;
+                            break;
+                        case 3:     //prairie
+                            newLevel = updateTerrain(y, x, true, 1002, newLevel);   // grass
+                            counter++;
+                            break;
+                        case 4:     // swamp
+                            newLevel = updateTerrain(y, x, true, 1005, newLevel);   //swamp
+                            counter++;
+                            break;
+                        case 5:     //mountain
+                            newLevel = updateTerrain(y, x, true, 1001, newLevel);   // dirt
+                            counter++;
+                            break;
+                    }
+                }
+            }
+        }
+    }
+    
+
+    getch();
+    // Generate Secondary Terrain //
+
+    counter = 0;
+
+    while(counter <= counterSecTrn)
+    {
+        for(y = 0; y <= newLevel->levelHeight; y++)
+        {
+            for(x = 0; x <= newLevel->levelWidth; x++)
+            {
+                if(!(rand() % 5) && (newLevel->levelMask[y][x].tileContents->biome) && (!newLevel->levelMask[y][x].tileContents->terrain) && (counter <= counterSecTrn))
+                {
+                    mvprintw(y, x, "S");
+                    mvprintw(7, newLevel->levelWidth + 4, "Secondary Terrain");
+                    mvprintw(8, newLevel->levelWidth + 4, "Counter Max is: %d", counterSecTrn);
+                    mvprintw(9, newLevel->levelWidth + 4, "Exit count is: %d", counter);
+                    mvprintw(10, newLevel->levelWidth + 4, "Spaces left is: %d", biomeCount - counterPriTrn);
+                    //getch();
+                    switch(newLevel->levelBiomeID)
+                    {
+                        case 0:     // desert
+                            newLevel = updateTerrain(y, x, true, 1001, newLevel);   // dirt
+                            counter++;
+                            break;
+                        case 1:     // forest
+                            newLevel = updateTerrain(y, x, true, 1002, newLevel);   // grass
+                            counter++;
+                            break;
+                        case 2:     // tundra
+                            newLevel = updateTerrain(y, x, true, 1001, newLevel);   // dirt
+                            counter++;
+                            break;
+                        case 3:     //prairie
+                            newLevel = updateTerrain(y, x, true, 1001, newLevel);   // dirt
+                            counter++;
+                            break;
+                        case 4:     // swamp
+                            newLevel = updateTerrain(y, x, true, 1002, newLevel);   // grass
+                            counter++;
+                            break;
+                        case 5:     //mountain
+                            newLevel = updateTerrain(y, x, true, 1004, newLevel);   // snow
+                            counter++;
+                            break;
+                    }
+                }
+            }
+        }
+    }
+    getch();    
+    // Generate Primary Terrain objects  //
+    
+    counter = 0;
+    
+    while(counter <= counterPriTrnObj)
+    {
+        for(y = 0; y <= newLevel->levelHeight; y++)
+        {
+            for(x = 0; x <= newLevel->levelWidth; x++)
+            {
+                if(!(rand() % 25) && (newLevel->levelMask[y][x].tileContents->biome) && (!newLevel->levelMask[y][x].tileContents->lgObject) && (counter <= counterPriTrnObj))
+                {
+                    mvprintw(y, x, "O");
+                    mvprintw(13, newLevel->levelWidth + 4, "Primary Terrain Obj");
+                    mvprintw(14, newLevel->levelWidth + 4, "Counter Max is: %d", counterPriTrnObj);
+                    mvprintw(15, newLevel->levelWidth + 4, "Exit count is: %d", counter);
+                    //getch();
+                    switch(newLevel->levelBiomeID)
+                    {
+                        case 0:     // desert
+                            newLevel = updateLgObject(y, x, true, 2006, newLevel);   // cactus
+                            counter++;
+                            break;
+                        case 1:     // forest
+                            if(rand() % 2)
+                            {
+                                newLevel = updateLgObject(y, x, true, 2001, newLevel);   // sm tree
+                            }
+                            else
+                            {
+                                newLevel = updateLgObject(y, x, true, 2002, newLevel);   // lg tree
+                            }
+                            counter++;
+                            break;
+                        case 2:     // tundra
+                            newLevel = updateLgObject(y, x, true, 2005, newLevel);      //boulder
+                            counter++;
+                            break;
+                        case 3:     //prairie
+                            if(rand() % 2)
+                            {
+                                newLevel = updateLgObject(y, x, true, 2003, newLevel);   // sm bush
+                            }
+                            else
+                            {
+                                newLevel = updateLgObject(y, x, true, 2004, newLevel);   // lg bush
+                            }
+                            counter++;
+                            break;
+                        case 4:     // swamp
+                            if(rand() % 2)
+                            {
+                                newLevel = updateLgObject(y, x, true, 2003, newLevel);   // sm bush
+                            }
+                            else
+                            {
+                                newLevel = updateLgObject(y, x, true, 2004, newLevel);   // lg bush
+                            }
+                            counter++;
+                            break;
+                        case 5:     //mountain
+                            newLevel = updateLgObject(y, x, true, 2005, newLevel);   // boulder
+                            break;
+                    }
+                }
+            }
+        }
+    }
+    getch();    
+    // Generate Secondary Terrain Objects  //
+
+    counter = 0;
+
+    while(counter <= counterSecTrnObj)
+    {
+        for(y = 0; y <= newLevel->levelHeight; y++)
+        {
+            for(x = 0; x <= newLevel->levelWidth; x++)
+            {
+                if(!(rand() % 25) && (newLevel->levelMask[y][x].tileContents->biome) && (!newLevel->levelMask[y][x].tileContents->lgObject) && (counter <= counterSecTrnObj))
+                {
+                    mvprintw(y, x, "o");
+                    mvprintw(17, newLevel->levelWidth + 4, "Secondary Terrain Objects");
+                    mvprintw(18, newLevel->levelWidth + 4, "%d", counterSecTrnObj);
+                    mvprintw(19, newLevel->levelWidth + 4, "%d", counter);
+                    //getch();
+                    switch(newLevel->levelBiomeID)
+                    {
+                        case 0:     // desert
+                            if(rand() % 2)
+                            {
+                                newLevel = updateLgObject(y, x, true, 2003, newLevel);   // sm bush
+                            }
+                            else
+                            {
+                                newLevel = updateLgObject(y, x, true, 2004, newLevel);   // lg bush
+                            }
+                            counter++;
+                            break;
+                        case 1:     // forest
+                            if(rand() % 2)
+                            {
+                                newLevel = updateLgObject(y, x, true, 2003, newLevel);   // sm bush
+                            }
+                            else
+                            {
+                                newLevel = updateLgObject(y, x, true, 2004, newLevel);   // lg bush
+                            }
+                            counter++;
+                            break;
+                        case 2:     // tundra
+                            if(rand() % 2)
+                            {
+                                newLevel = updateLgObject(y, x, true, 2003, newLevel);   // sm bush
+                            }
+                            else
+                            {
+                                newLevel = updateLgObject(y, x, true, 2004, newLevel);   // lg bush
+                            }
+                            counter++;
+                            break;
+                        case 3:     //prairie
+                            if(rand() % 2)
+                            {
+                                newLevel = updateLgObject(y, x, true, 2001, newLevel);   // sm tree
+                            }
+                            else
+                            {
+                                newLevel = updateLgObject(y, x, true, 2002, newLevel);   // lg tree
+                            }
+                            counter++;
+                            break;
+                        case 4:     // swamp
+                            if(rand() % 2)
+                            {
+                                newLevel = updateLgObject(y, x, true, 2001, newLevel);   // sm tree
+                            }
+                            else
+                            {
+                                newLevel = updateLgObject(y, x, true, 2002, newLevel);   // lg tree
+                            }
+                            counter++;
+                            break;
+                        case 5:     //mountain
+                            if(rand() % 2)
+                            {
+                                newLevel = updateLgObject(y, x, true, 2001, newLevel);   // sm tree
+                            }
+                            else
+                            {
+                                newLevel = updateLgObject(y, x, true, 2002, newLevel);   // lg tree
+                            }
+                            counter++;
+                            break;
+                    }
+                }
+            }
+        }
+    }
+    getch();
+    return newLevel;
+}
+
+Level * popBiomeTerrain(int y, int x, char terrainType[6], Level * newLevel)
+{
+    if(strcmp(terrainType, "priFea"))
+    {
+    }
 }
 
 Level * updateWorldTile(Level * newLevel)

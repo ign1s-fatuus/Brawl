@@ -10,13 +10,20 @@ typedef struct Level
     int levelNumber;        // i.e. 1, 2...10
     int levelSize;          // 0 = small, 1 = medium, 2 = large --> overal size of map
     char levelBiome[10];
-    int biomeDensity;
-    int biomeMinSeed;
-    int biomeMaxSeed;
+    int levelBiomeID;       //0 = desert, 1 = forest, 2 = tundra, 3 = prarie; 4 = swamp; 5 = mountain
     int levelHeight;
     int levelWidth;
     int barSize;            // 0 = small, 1 = medium, 2 = large --> size of bar building
     int barClass;           // dive bar, biker bar, gay bar, etc.
+    int biomeDensity;
+    int biomeMinSeed;
+    int biomeMaxSeed;
+    int envPriTrnObjDensity;
+    int envSecTrnObjDensity;
+    int envPriTrnDensity;
+    int envSecTrnDensity;
+    double perlinFreq;
+    double perlinPersist;
 
     struct Tile ** levelMask;       // data map of game area
     struct Bar * bar;
@@ -26,18 +33,21 @@ typedef struct Tile
 {
     struct TileContents * tileContents;
     struct World * world;
-    struct Envmnt * envmnt;
+    struct Terrain * terrain;
     struct Building * building;
+    struct LgObject * lgObject;
+    struct SmObject * smObject;
 } Tile;
 
 typedef struct TileContents
 {
+    bool biome;
     bool player;
     bool npc;
-    bool Pobject;
-    bool Sobject;
+    bool lgObject;
+    bool smObject;
     bool building;
-    bool envmnt;
+    bool terrain;
 } TileContents;
 
 typedef struct World
@@ -47,17 +57,28 @@ typedef struct World
     char terrain[20];
 } World;
 
-typedef struct Envmnt
+typedef struct Terrain
 {
     char name[20];
     char description[50];
     char maskID[1];
+    int height;
     char symbol[1];
     int symColor;       // should be an int.
-    char symbolDest[1];
-    int symDestColor;
-    char type;              //i.e. tree
-    char subtype;           //i.e maple
+    int speedMod;           // Maybe 1 to 10; 5 is narmal 
+    int damage;          //i.e. toxic waste, etc.
+    bool fammable;
+} Terrain;
+
+/* todo: add what replaced if destroyed -- i.e. tree -> stick  */
+typedef struct LgObject
+{
+    char name[20];
+    char description[50];
+    char maskID[1];
+    int objectID;
+    char symbol[1];
+    int symColor;       // should be an int.
     int speedMod;           // Maybe 1 to 10; 5 is narmal 
     int damage;          //i.e. toxic waste, etc.
     int storageCap;
@@ -69,7 +90,29 @@ typedef struct Envmnt
     bool destroyed;
     bool fammable;
 
-} Envmnt;
+} LgObject;
+
+/* todo: add used_as_weapon_damage  */
+typedef struct SmObject
+{
+    char name[20];
+    char description[50];
+    char maskID[1];
+    int objectID;
+    char symbol[1];
+    int symColor;       // should be an int.
+    int speedMod;           // Maybe 1 to 10; 5 is narmal 
+    int damage;          //i.e. toxic waste, etc.
+    int storageCap;
+    int storedItems[10];
+    int toughness;
+    int maxHealth;
+    int curHealth;
+    bool destructable;
+    bool destroyed;         //may not need
+    bool fammable;
+
+} SmObject;
 
 typedef struct Building
 {
@@ -143,7 +186,14 @@ typedef struct Tile
 Level * generateLevel(Level * newLevel, int levelNumber);
 Tile ** createLevelMask(Level * newLevel);
 Level * generateBar(Level * newLevel);
-Level * generateRandom(Level * newLevel, int percentCover);
+Level * generateBiome(Level * newLevel);
 Level * updateWorldTile(Level * newLevel);
+Level * updateBiome(int y, int x, bool hasBiome, Level * newLevel);
+Level * generateTerrain(Level * newLevel);
+/* move to separate tile header file */
+Level * updateTerrain(int y, int x, bool hasTerrain, int objectID, Level * newLevel);
+Level * updateLgObject(int y, int x, bool hasLgObject, int objectID, Level * newLevel);
+Level * updateSmObject(int y, int x, bool hasSmObject, int objectID, Level * newLevel);
+Level * generateHeightMap(Level * newLevel);
 
 #endif
