@@ -24,10 +24,11 @@ Level * generateLevel(Level * newLevel, int levelNumber)
 
     newLevel->levelSize = (rand() % 3);        // 0=small; 1=med; 2=lrg
 
-    newLevel = generateBiome(newLevel);
-    newLevel = generateTerrain(newLevel);
-    newLevel = generateBar(newLevel);
     newLevel = generateHeightMap(newLevel);
+    newLevel = generateBiome2(newLevel);
+    //newLevel = generateBiome(newLevel);
+    //newLevel = generateTerrain(newLevel);
+    newLevel = generateBar(newLevel);
     newLevel->levelMask = addBarMask(newLevel);
     
     return newLevel;
@@ -113,6 +114,276 @@ Level * generateHeightMap(Level * newLevel)
 
     return newLevel;
 }
+
+Level * generateBiome2(Level * newLevel)
+{
+    int y, x, b, rndDir;
+    
+    /* default all tiles to dirt -- rethink this to come up with a more dynamic option  */
+    for (y = 0; y <= newLevel->levelHeight; y++)
+    {
+        for (x = 0; x <= newLevel->levelWidth; x++)
+        {
+            newLevel = updateTerrain(y, x, true, 1001, newLevel);
+        }
+    }
+
+    /* populate terrain via height map  */
+    for (b = 9; b  >= 0; b--)
+    {
+        for (y = 0; y <= newLevel->levelHeight; y++)
+        {
+            for (x = 0; x <= newLevel->levelWidth; x++)
+            {
+                    if (newLevel->levelMask[y][x].terrain->height == b)
+                    switch (newLevel->levelBiomeID)
+                    {
+                        case 0:         // dersert
+                            switch (b)
+                            {
+                                case 9:
+                                    newLevel = updateTerrain(y, x, true, 1003, newLevel);    
+                                    break;
+                                case 8:
+                                    newLevel = updateTerrain(y, x, true, 1003, newLevel);   
+                                    break;
+                                case 7:
+                                    newLevel = updateTerrain(y, x, true, 1003, newLevel);  
+                                    break;
+                                case 6:
+                                    newLevel = weighterRandomTerrain(y, x, 90, 50, 1003, 1003, newLevel);
+                                    break;
+                                case 5:
+                                    newLevel = weighterRandomTerrain(y, x, 80, 40, 1003, 1003, newLevel);
+                                    break;
+                                case 4:
+                                    newLevel = weighterRandomTerrain(y, x, 70, 30, 1003, 1003, newLevel);
+                                    break;
+                                case 3:
+                                    newLevel = weighterRandomTerrain(y, x, 40, 20, 1006, 1006, newLevel);
+                                    break;
+                                case 2:
+                                    newLevel = weighterRandomTerrain(y, x, 60, 30, 1006, 1006, newLevel);
+                                    break;
+                                case 1:
+                                    newLevel = weighterRandomTerrain(y, x, 80, 50, 1006, 1006, newLevel);
+                                    break;
+                                case 0:
+                                    newLevel = weighterRandomTerrain(y, x, 90, 60, 1006, 1006, newLevel);
+                                    break;
+                            }
+                            break;
+                        case 1:         // forest
+                            switch (b)
+                            {
+                                case 9:
+                                    newLevel = weighterRandomTerrain(y, x, 30, 20, 1004, 1004, newLevel);
+                                    break;
+                                case 8:
+                                    newLevel = weighterRandomTerrain(y, x, 20, 10, 1004, 1004, newLevel);
+                                    break;
+                                case 7:
+                                    newLevel = weighterRandomTerrain(y, x, 10, 5, 1004, 1004, newLevel);
+                                    break;
+                                case 6:
+                                    newLevel = weighterRandomTerrain(y, x, 20, 10, 1001, 1002, newLevel);
+                                    break;
+                                case 5:
+                                    newLevel = weighterRandomTerrain(y, x, 30, 20, 1001, 1002, newLevel);
+                                    break;
+                                case 4:
+                                    newLevel = weighterRandomTerrain(y, x, 40, 30, 1001, 1002, newLevel);
+                                    break;
+                                case 3:
+                                    newLevel = weighterRandomTerrain(y, x, 50, 35, 1001, 1002, newLevel);
+                                    break;
+                                case 2:
+                                    newLevel = weighterRandomTerrain(y, x, 60, 40, 1001, 1002, newLevel);
+                                    break;
+                                case 1:
+                                    newLevel = weighterRandomTerrain(y, x, 70, 50, 1001, 1002, newLevel);
+                                    break;
+                                case 0:
+                                    newLevel = weighterRandomTerrain(y, x, 80, 60, 1001, 1002, newLevel);
+                                    break;
+                            }
+                            break;
+                        case 2:         // tundra
+                            switch (b)
+                            {
+                                case 9:
+                                    newLevel = weighterRandomTerrain(y, x, 99, 80, 1004, 1004, newLevel);
+                                    break;
+                                case 8:
+                                    newLevel = weighterRandomTerrain(y, x, 90, 80, 1004, 1004, newLevel);
+                                    break;
+                                case 7:
+                                    newLevel = weighterRandomTerrain(y, x, 80, 60, 1004, 1004, newLevel);
+                                    break;
+                                case 6:
+                                    newLevel = weighterRandomTerrain(y, x, 50, 44, 1004, 1004, newLevel);
+                                    break;
+                                case 5:
+                                    newLevel = weighterRandomTerrain(y, x, 40, 20, 1004, 1004, newLevel);
+                                    break;
+                                case 4:
+                                    newLevel = weighterRandomTerrain(y, x, 20, 10, 1004, 1004, newLevel);
+                                    break;
+                                case 3:
+                                    newLevel = weighterRandomTerrain(y, x, 10, 5, 1004, 1004, newLevel);
+                                    break;
+                                case 2:
+                                    newLevel = weighterRandomTerrain(y, x, 25, 15, 1004, 1004, newLevel);
+                                    break;
+                                case 1:
+                                    newLevel = weighterRandomTerrain(y, x, 35, 20, 1004, 1004, newLevel);
+                                    break;
+                                case 0:
+                                    newLevel = weighterRandomTerrain(y, x, 45, 30, 1004, 1004, newLevel);
+                                    break;
+                            }
+                            break;
+                        case 3:         // prairie
+                            switch (b)
+                            {
+                                case 9:
+                                    newLevel = weighterRandomTerrain(y, x, 99, 80, 1002, 1002, newLevel);
+                                    break;
+                                case 8:
+                                    newLevel = weighterRandomTerrain(y, x, 95, 80, 1002, 1002, newLevel);
+                                    break;
+                                case 7:
+                                    newLevel = weighterRandomTerrain(y, x, 85, 70, 1002, 1002, newLevel);
+                                    break;
+                                case 6:
+                                    newLevel = weighterRandomTerrain(y, x, 80, 60, 1002, 1002, newLevel);
+                                    break;
+                                case 5:
+                                    newLevel = weighterRandomTerrain(y, x, 75, 50, 1002, 1002, newLevel);
+                                    break;
+                                case 4:
+                                    newLevel = weighterRandomTerrain(y, x, 70, 40, 1002, 1002, newLevel);
+                                    break;
+                                case 3:
+                                    newLevel = weighterRandomTerrain(y, x, 65, 35, 1002, 1002, newLevel);
+                                    break;
+                                case 2:
+                                    newLevel = weighterRandomTerrain(y, x, 60, 30, 1002, 1002, newLevel);
+                                    break;
+                                case 1:
+                                    newLevel = weighterRandomTerrain(y, x, 35, 15, 1002, 1002, newLevel);
+                                    break;
+                                case 0:
+                                    newLevel = weighterRandomTerrain(y, x, 30, 10, 1002, 1002, newLevel);
+                                    break;
+                            }
+                            break;
+                        case 4:         // swamp
+                            switch (b)
+                            {
+                                case 9:
+                                    newLevel = weighterRandomTerrain(y, x, 75, 60, 1002, 1002, newLevel);
+                                    break;
+                                case 8:
+                                    newLevel = weighterRandomTerrain(y, x, 70, 55, 1002, 1002, newLevel);
+                                    break;
+                                case 7:
+                                    newLevel = weighterRandomTerrain(y, x, 65, 50, 1002, 1002, newLevel);
+                                    break;
+                                case 6:
+                                    newLevel = weighterRandomTerrain(y, x, 60, 45, 1002, 1002, newLevel);
+                                    break;
+                                case 5:
+                                    newLevel = weighterRandomTerrain(y, x, 55, 40, 1002, 1002, newLevel);
+                                    break;
+                                case 4:
+                                    newLevel = weighterRandomTerrain(y, x, 30, 20, 1005, 1005, newLevel);
+                                    break;
+                                case 3:
+                                    newLevel = weighterRandomTerrain(y, x, 50, 30, 1005, 1005, newLevel);
+                                    break;
+                                case 2:
+                                    newLevel = weighterRandomTerrain(y, x, 75, 40, 1005, 1005, newLevel);
+                                    break;
+                                case 1:
+                                    newLevel = updateTerrain(y, x, true, 1007, newLevel);
+                                    break;
+                                case 0:
+                                    newLevel = updateTerrain(y, x, true, 1008, newLevel);
+                                    break;
+                            }
+                            break;
+                        case 5:         // mountain
+                            switch (b)
+                            {
+                                case 9:
+                                    newLevel = weighterRandomTerrain(y, x, 90, 70, 1004, 1004, newLevel);
+                                    break;
+                                case 8:
+                                    newLevel = weighterRandomTerrain(y, x, 80, 50, 1004, 1004, newLevel);
+                                    break;
+                                case 7:
+                                    newLevel = weighterRandomTerrain(y, x, 60, 40, 1004, 1004, newLevel);
+                                    break;
+                                case 6:
+                                    newLevel = weighterRandomTerrain(y, x, 50, 30, 1004, 1004, newLevel);
+                                    break;
+                                case 5:
+                                    newLevel = weighterRandomTerrain(y, x, 30, 10, 1004, 1004, newLevel);
+                                    break;
+                                case 4:
+                                    newLevel = weighterRandomTerrain(y, x, 10, 5, 1004, 1004, newLevel);
+                                    break;
+                                case 3:
+                                    newLevel = weighterRandomTerrain(y, x, 5, 5, 1004, 1004, newLevel);
+                                    break;
+                                case 2:
+                                    newLevel = weighterRandomTerrain(y, x, 20, 10, 1001, 1002, newLevel);
+                                    break;
+                                case 1:
+                                    newLevel = weighterRandomTerrain(y, x, 30, 15, 1001, 1002, newLevel);
+                                    break;
+                                case 0:
+                                    newLevel = weighterRandomTerrain(y, x, 60, 20, 1001, 1002, newLevel);
+                                    break;
+                            }
+                            break;
+                    }
+            }
+        }
+    }
+
+    return newLevel;
+}
+
+Level * weighterRandomTerrain(int y, int x, int wghtPercent, int defPercent, int objectIdMatch, int terrainTypeAdd, Level * newLevel)
+{
+    if ((y - 1 >= 0) && (y + 1 <= newLevel->levelHeight) && (x - 1 >= 0) && (x + 1 <= newLevel->levelWidth))    //fix this !!! creates a border of dirt around the entire map !!!
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            for (int j = 0; j < 2; j++)
+            {
+                if ((newLevel->levelMask[y + i][x + j].terrain->objectID == objectIdMatch) || (newLevel->levelMask[y - i][x - j].terrain->objectID == objectIdMatch) || (newLevel->levelMask[y - i][x + j].terrain->objectID == objectIdMatch) || (newLevel->levelMask[y + i][x - j].terrain->objectID == objectIdMatch))
+                {
+                    if ((rand() % 101) < wghtPercent)
+                    {
+                        newLevel = updateTerrain(y, x, true, terrainTypeAdd, newLevel); 
+                    }
+                }
+                else
+                {
+                    if ((rand() % 101) == defPercent)
+                    {
+                        newLevel = updateTerrain(y, x, true, terrainTypeAdd, newLevel);
+                    }
+                }
+            }
+        }
+    }
+    return newLevel;
+}
+
 
 Level * generateBiome(Level * newLevel)
 {
@@ -398,6 +669,7 @@ Level * generateTerrain(Level * newLevel)
                             break;
                         case 5:     //mountain
                             newLevel = updateLgObject(y, x, true, 2005, newLevel);   // boulder
+                            counter++;
                             break;
                     }
                 }

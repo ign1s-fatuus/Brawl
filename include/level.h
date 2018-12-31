@@ -61,6 +61,7 @@ typedef struct Terrain
 {
     char name[20];
     char description[50];
+    int objectID;
     char maskID[1];
     int height;
     char symbol[1];
@@ -195,5 +196,7 @@ Level * updateTerrain(int y, int x, bool hasTerrain, int objectID, Level * newLe
 Level * updateLgObject(int y, int x, bool hasLgObject, int objectID, Level * newLevel);
 Level * updateSmObject(int y, int x, bool hasSmObject, int objectID, Level * newLevel);
 Level * generateHeightMap(Level * newLevel);
+Level * generateBiome2(Level * newLevel);
+Level * weighterRandomTerrain(int y, int x, int wghtPercent, int defPercent, int objectIdMatch, int objectIdAdd, Level * newLevel);
 
 #endif

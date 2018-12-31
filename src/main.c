@@ -19,21 +19,6 @@ int main()
     srand(time(0));
 
     start_color();
-    int background = COLOR_BLUE;
-    init_color(background, 1000, 0, 0);
-    init_pair(1, COLOR_RED, background);
-    init_pair(2, COLOR_RED, COLOR_BLUE);
-    attron(COLOR_PAIR(1));
-    printw("this is a test");
-    attroff(COLOR_PAIR(1));
-
-    getch();
-    init_color(background, 0, 500, 1000);
-    attron(COLOR_PAIR(1));
-    printw("this is a test");
-    attroff(COLOR_PAIR(1));
-    getch();
-
 
     Level * newLevel;
     newLevel = malloc(sizeof(Level));
@@ -41,6 +26,9 @@ int main()
     newLevel = generateWorld(newLevel);
     
     newLevel = allocateMemory(newLevel);
+    
+    printData(newLevel);
+    getch();
 
     newLevel = generateLevel(newLevel, 1);
     //newLevel->levelMask = createLevelMask(newLevel); 
@@ -50,7 +38,6 @@ int main()
     //refreshWindows(gameWindows);
 
     clear();
-    printData(newLevel);
     testPrintMask(newLevel);
     getch();
     testHeightMap(newLevel);
@@ -163,5 +150,14 @@ int testHeightMap(Level * newLevel)
         }
     }
 
+    getch();
+    clear();
+    for (y = 0; y <= newLevel->levelHeight; y++)
+    {
+        for (x = 0; x <= newLevel->levelWidth; x++)
+        {
+            mvprintw(y, x , "%s", newLevel->levelMask[y][x].terrain->maskID);
+        }
+    }
     return 0;
 }
