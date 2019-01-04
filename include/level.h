@@ -5,8 +5,19 @@
 
 /* Declaration of data types  */
 
+typedef struct Player
+{
+    //int str;
+    //int dex;
+    //int health;
+    char playerSymbol[1];
+    int playerColor;
+    Coordinates playerCoordinates;
+} Player;
+
 typedef struct Level
 {
+    Player * newPlayer;
     int levelNumber;        // i.e. 1, 2...10
     int levelSize;          // 0 = small, 1 = medium, 2 = large --> overal size of map
     char levelBiome[10];
@@ -24,6 +35,7 @@ typedef struct Level
     int envSecTrnDensity;
     double perlinFreq;
     double perlinPersist;
+    int cPal[256][256];
 
     struct Tile ** levelMask;       // data map of game area
     struct Bar * bar;
@@ -37,7 +49,13 @@ typedef struct Tile
     struct Building * building;
     struct LgObject * lgObject;
     struct SmObject * smObject;
+    struct TileProperties * tileProperties;
 } Tile;
+
+typedef struct TileProperties
+{
+    bool impass;
+} TileProperties;
 
 typedef struct TileContents
 {
@@ -63,6 +81,9 @@ typedef struct Terrain
     char description[50];
     int objectID;
     char maskID[1];
+    char ACStype[30];
+    bool bold;
+    bool dim;
     int height;
     char symbol[1];
     int symColor;       // should be an int.
@@ -80,6 +101,8 @@ typedef struct LgObject
     int objectID;
     char symbol[1];
     int symColor;       // should be an int.
+    bool bold;
+    bool dim;
     int speedMod;           // Maybe 1 to 10; 5 is narmal 
     int damage;          //i.e. toxic waste, etc.
     int storageCap;
@@ -102,6 +125,8 @@ typedef struct SmObject
     int objectID;
     char symbol[1];
     int symColor;       // should be an int.
+    bool bold;
+    bool dim;
     int speedMod;           // Maybe 1 to 10; 5 is narmal 
     int damage;          //i.e. toxic waste, etc.
     int storageCap;
@@ -197,6 +222,19 @@ Level * updateLgObject(int y, int x, bool hasLgObject, int objectID, Level * new
 Level * updateSmObject(int y, int x, bool hasSmObject, int objectID, Level * newLevel);
 Level * generateHeightMap(Level * newLevel);
 Level * generateBiome2(Level * newLevel);
-Level * weighterRandomTerrain(int y, int x, int wghtPercent, int defPercent, int objectIdMatch, int objectIdAdd, Level * newLevel);
+Level * weightedRandomTerrain(int y, int x, int wghtPercent, int defPercent, int objectIdMatch, int objectIdAdd, Level * newLevel);
+Level * weightedRandomTerrainLlgObj(int y, int x, int wghtPercent, int defPercent, int terrainIdMatch, int objectTypeAdd, Level * newlevel);
+Level * weightedFractTerrainLlgObj(int y, int x, double wghtPercent, double defPercent, int terrainIdMatch, int objectTypeAdd, Level * newlevel);
+/* Color functions -- move to own header file */
+Level * buildColorPalette(Level * newLevel);
 
+/* render and map draw function -- move to own header file  */
+int drawMap(Level * newLevel);
+int redrawMapElement(int y, int x, Level * newLevel);
+
+/* plaer functions -- move to own header file  */
+Level * setUpPlayer(Level * newLevel);
+
+/* movement functions -- move to own header file  */
+Level * handleInput(int keyPrss, Level * newLevel);
 #endif

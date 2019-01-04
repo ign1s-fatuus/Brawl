@@ -16,7 +16,9 @@ Level * updateLgObject(int y, int x, bool hasLgObject, int objectID, Level * new
                 strcpy(newLevel->levelMask[y][x].lgObject->description, "Add description");
                 strcpy(newLevel->levelMask[y][x].lgObject->maskID, "t");
                 strcpy(newLevel->levelMask[y][x].lgObject->symbol, "t");
-                //newLevel->levelMask[y][x].lgObject->symColor = add color
+                newLevel->levelMask[y][x].lgObject->symColor = 64;
+                newLevel->levelMask[y][x].lgObject->bold = false;
+                newLevel->levelMask[y][x].lgObject->dim = false;
                 //newLevel->levelMask[y][x].lgObject->speedMod = add speed mod
                 newLevel->levelMask[y][x].lgObject->storageCap = 0;
                 //newLevel->levelMask[y][x].lgObject->toughness = add toughness
@@ -33,7 +35,9 @@ Level * updateLgObject(int y, int x, bool hasLgObject, int objectID, Level * new
                 strcpy(newLevel->levelMask[y][x].lgObject->description, "Add description");
                 strcpy(newLevel->levelMask[y][x].lgObject->maskID, "T");
                 strcpy(newLevel->levelMask[y][x].lgObject->symbol, "T");
-                //newLevel->levelMask[y][x].lgObject->symColor = add color
+                newLevel->levelMask[y][x].lgObject->symColor = 64;
+                newLevel->levelMask[y][x].lgObject->bold = true;
+                newLevel->levelMask[y][x].lgObject->dim = false;
                 //newLevel->levelMask[y][x].lgObject->speedMod = add speed mod
                 newLevel->levelMask[y][x].lgObject->storageCap = 0;
                 //newLevel->levelMask[y][x].lgObject->toughness = add toughness
@@ -49,8 +53,10 @@ Level * updateLgObject(int y, int x, bool hasLgObject, int objectID, Level * new
                 strcpy(newLevel->levelMask[y][x].lgObject->name, "small bush");
                 strcpy(newLevel->levelMask[y][x].lgObject->description, "Add description");
                 strcpy(newLevel->levelMask[y][x].lgObject->maskID, "b");
-                strcpy(newLevel->levelMask[y][x].lgObject->symbol, "b");
-                //newLevel->levelMask[y][x].lgObject->symColor = add color
+                strcpy(newLevel->levelMask[y][x].lgObject->symbol, "#");
+                newLevel->levelMask[y][x].lgObject->symColor = 106;
+                newLevel->levelMask[y][x].lgObject->bold = false;
+                newLevel->levelMask[y][x].lgObject->dim = false;
                 //newLevel->levelMask[y][x].lgObject->speedMod = add speed mod
                 newLevel->levelMask[y][x].lgObject->storageCap = 0;
                 //newLevel->levelMask[y][x].lgObject->toughness = add toughness
@@ -66,8 +72,10 @@ Level * updateLgObject(int y, int x, bool hasLgObject, int objectID, Level * new
                 strcpy(newLevel->levelMask[y][x].lgObject->name, "large bush");
                 strcpy(newLevel->levelMask[y][x].lgObject->description, "Add description");
                 strcpy(newLevel->levelMask[y][x].lgObject->maskID, "B");
-                strcpy(newLevel->levelMask[y][x].lgObject->symbol, "B");
-                //newLevel->levelMask[y][x].lgObject->symColor = add color
+                strcpy(newLevel->levelMask[y][x].lgObject->symbol, "#");
+                newLevel->levelMask[y][x].lgObject->symColor = 106;
+                newLevel->levelMask[y][x].lgObject->bold = true;
+                newLevel->levelMask[y][x].lgObject->dim = false;
                 //newLevel->levelMask[y][x].lgObject->speedMod = add speed mod
                 newLevel->levelMask[y][x].lgObject->storageCap = 0;
                 //newLevel->levelMask[y][x].lgObject->toughness = add toughness
@@ -83,8 +91,10 @@ Level * updateLgObject(int y, int x, bool hasLgObject, int objectID, Level * new
                 strcpy(newLevel->levelMask[y][x].lgObject->name, "Boulder");
                 strcpy(newLevel->levelMask[y][x].lgObject->description, "Add description");
                 strcpy(newLevel->levelMask[y][x].lgObject->maskID, "D");
-                strcpy(newLevel->levelMask[y][x].lgObject->symbol, "D");
-                //newLevel->levelMask[y][x].lgObject->symColor = add color
+                strcpy(newLevel->levelMask[y][x].lgObject->symbol, "o");
+                newLevel->levelMask[y][x].lgObject->symColor = 232;
+                newLevel->levelMask[y][x].lgObject->bold = false;
+                newLevel->levelMask[y][x].lgObject->dim = false;
                 //newLevel->levelMask[y][x].lgObject->speedMod = add speed mod
                 newLevel->levelMask[y][x].lgObject->storageCap = 0;
                 //newLevel->levelMask[y][x].lgObject->toughness = add toughness
@@ -102,7 +112,9 @@ Level * updateLgObject(int y, int x, bool hasLgObject, int objectID, Level * new
                 strcpy(newLevel->levelMask[y][x].lgObject->description, "Add description");
                 strcpy(newLevel->levelMask[y][x].lgObject->maskID, "c");
                 strcpy(newLevel->levelMask[y][x].lgObject->symbol, "t");
-                //newLevel->levelMask[y][x].lgObject->symColor = add color
+                newLevel->levelMask[y][x].lgObject->symColor = 28;
+                newLevel->levelMask[y][x].lgObject->bold = false;
+                newLevel->levelMask[y][x].lgObject->dim = false;
                 //newLevel->levelMask[y][x].lgObject->speedMod = add speed mod
                 newLevel->levelMask[y][x].lgObject->storageCap = 0;
                 //newLevel->levelMask[y][x].lgObject->toughness = add toughness

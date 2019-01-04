@@ -15,8 +15,12 @@ Level * updateTerrain(int y, int x, bool hasTerrain, int objectID, Level * newLe
                 strcpy(newLevel->levelMask[y][x].terrain->description, "Add description");
                 strcpy(newLevel->levelMask[y][x].terrain->maskID, "d");
                 strcpy(newLevel->levelMask[y][x].terrain->symbol, ".");
+                strcpy(newLevel->levelMask[y][x].terrain->ACStype, "ACS_CKBOARD");
                 newLevel->levelMask[y][x].tileContents->terrain = true;
-                //newLevel->levelMask[y][x].terrain->symColor = add color
+                newLevel->levelMask[y][x].tileProperties->impass = false;
+                newLevel->levelMask[y][x].terrain->bold = true;
+                newLevel->levelMask[y][x].terrain->dim = false;
+                newLevel->levelMask[y][x].terrain->symColor = 94;
                 //newLevel->levelMask[y][x].terrain->speedMod = add speed mod
                 newLevel->levelMask[y][x].terrain->damage = 0;
                 newLevel->levelMask[y][x].terrain->fammable = false;
@@ -26,9 +30,13 @@ Level * updateTerrain(int y, int x, bool hasTerrain, int objectID, Level * newLe
                 newLevel->levelMask[y][x].terrain->objectID = 1001;
                 strcpy(newLevel->levelMask[y][x].terrain->description, "Add description");
                 strcpy(newLevel->levelMask[y][x].terrain->maskID, "g");
-                strcpy(newLevel->levelMask[y][x].terrain->symbol, ".");
+                strcpy(newLevel->levelMask[y][x].terrain->symbol, ",");
+                strcpy(newLevel->levelMask[y][x].terrain->ACStype, "ACS_CKBOARD");
+                newLevel->levelMask[y][x].terrain->bold = true;
+                newLevel->levelMask[y][x].terrain->dim = false;
                 newLevel->levelMask[y][x].tileContents->terrain = true;
-                //newLevel->levelMask[y][x].terrain->symColor = add color
+                newLevel->levelMask[y][x].tileProperties->impass = false;
+                newLevel->levelMask[y][x].terrain->symColor = 22;
                 //newLevel->levelMask[y][x].terrain->speedMod = add speed mod
                 newLevel->levelMask[y][x].terrain->damage = 0;
                 newLevel->levelMask[y][x].terrain->fammable = false;
@@ -39,8 +47,12 @@ Level * updateTerrain(int y, int x, bool hasTerrain, int objectID, Level * newLe
                 strcpy(newLevel->levelMask[y][x].terrain->description, "Add description");
                 strcpy(newLevel->levelMask[y][x].terrain->maskID, "s");
                 strcpy(newLevel->levelMask[y][x].terrain->symbol, ".");
+                strcpy(newLevel->levelMask[y][x].terrain->ACStype, "ACS_CKBOARD");
+                newLevel->levelMask[y][x].terrain->bold = true;
+                newLevel->levelMask[y][x].terrain->dim = false;
                 newLevel->levelMask[y][x].tileContents->terrain = true;
-                //newLevel->levelMask[y][x].terrain->symColor = add color
+                newLevel->levelMask[y][x].tileProperties->impass = false;
+                newLevel->levelMask[y][x].terrain->symColor = 172;
                 //newLevel->levelMask[y][x].terrain->speedMod = add speed mod
                 newLevel->levelMask[y][x].terrain->damage = 0;
                 newLevel->levelMask[y][x].terrain->fammable = false;
@@ -51,8 +63,12 @@ Level * updateTerrain(int y, int x, bool hasTerrain, int objectID, Level * newLe
                 strcpy(newLevel->levelMask[y][x].terrain->description, "Add description");
                 strcpy(newLevel->levelMask[y][x].terrain->maskID, "o");
                 strcpy(newLevel->levelMask[y][x].terrain->symbol, ".");
+                //strcpy(newLevel->levelMask[y][x].terrain->ACStype, "ACS_CKBOARD");
+                newLevel->levelMask[y][x].terrain->bold = true;
+                newLevel->levelMask[y][x].terrain->dim = true;
                 newLevel->levelMask[y][x].tileContents->terrain = true;
-                //newLevel->levelMask[y][x].terrain->symColor = add color
+                newLevel->levelMask[y][x].tileProperties->impass = false;
+                newLevel->levelMask[y][x].terrain->symColor = 229;
                 //newLevel->levelMask[y][x].terrain->speedMod = add speed mod
                 newLevel->levelMask[y][x].terrain->damage = 0;
                 newLevel->levelMask[y][x].terrain->fammable = false;
@@ -62,9 +78,13 @@ Level * updateTerrain(int y, int x, bool hasTerrain, int objectID, Level * newLe
                 newLevel->levelMask[y][x].terrain->objectID = 1005;
                 strcpy(newLevel->levelMask[y][x].terrain->description, "Add description");
                 strcpy(newLevel->levelMask[y][x].terrain->maskID, "w");
-                strcpy(newLevel->levelMask[y][x].terrain->symbol, ".");
+                strcpy(newLevel->levelMask[y][x].terrain->symbol, ",");
+                strcpy(newLevel->levelMask[y][x].terrain->ACStype, "ACS_CKBOARD");
+                newLevel->levelMask[y][x].terrain->bold = true;
+                newLevel->levelMask[y][x].terrain->dim = false;
                 newLevel->levelMask[y][x].tileContents->terrain = true;
-                //newLevel->levelMask[y][x].terrain->symColor = add color
+                newLevel->levelMask[y][x].tileProperties->impass = false;
+                newLevel->levelMask[y][x].terrain->symColor = 61;
                 //newLevel->levelMask[y][x].terrain->speedMod = add speed mod
                 newLevel->levelMask[y][x].terrain->damage = 0;
                 newLevel->levelMask[y][x].terrain->fammable = false;
@@ -74,9 +94,13 @@ Level * updateTerrain(int y, int x, bool hasTerrain, int objectID, Level * newLe
                 newLevel->levelMask[y][x].terrain->objectID = 1006;
                 strcpy(newLevel->levelMask[y][x].terrain->description, "Add description");
                 strcpy(newLevel->levelMask[y][x].terrain->maskID, "D");
+                strcpy(newLevel->levelMask[y][x].terrain->ACStype, "ACS_CKBOARD");
                 strcpy(newLevel->levelMask[y][x].terrain->symbol, ".");
+                newLevel->levelMask[y][x].terrain->bold = true;
+                newLevel->levelMask[y][x].terrain->dim = true;
                 newLevel->levelMask[y][x].tileContents->terrain = true;
-                //newLevel->levelMask[y][x].terrain->symColor = add color
+                newLevel->levelMask[y][x].tileProperties->impass = false;
+                newLevel->levelMask[y][x].terrain->symColor = 94;
                 //newLevel->levelMask[y][x].terrain->speedMod = add speed mod
                 newLevel->levelMask[y][x].terrain->damage = 0;
                 newLevel->levelMask[y][x].terrain->fammable = false;
@@ -86,9 +110,13 @@ Level * updateTerrain(int y, int x, bool hasTerrain, int objectID, Level * newLe
                 newLevel->levelMask[y][x].terrain->objectID = 1007;
                 strcpy(newLevel->levelMask[y][x].terrain->description, "Add description");
                 strcpy(newLevel->levelMask[y][x].terrain->maskID, "~");
-                strcpy(newLevel->levelMask[y][x].terrain->symbol, ".");
+                strcpy(newLevel->levelMask[y][x].terrain->symbol, "~");
+                strcpy(newLevel->levelMask[y][x].terrain->ACStype, "ACS_CKBOARD");
+                newLevel->levelMask[y][x].terrain->bold = false;
+                newLevel->levelMask[y][x].terrain->dim = false;
                 newLevel->levelMask[y][x].tileContents->terrain = true;
-                //newLevel->levelMask[y][x].terrain->symColor = add color
+                newLevel->levelMask[y][x].tileProperties->impass = true;
+                newLevel->levelMask[y][x].terrain->symColor = 21;
                 //newLevel->levelMask[y][x].terrain->speedMod = add speed mod
                 newLevel->levelMask[y][x].terrain->damage = 0;
                 newLevel->levelMask[y][x].terrain->fammable = false;
@@ -98,9 +126,13 @@ Level * updateTerrain(int y, int x, bool hasTerrain, int objectID, Level * newLe
                 newLevel->levelMask[y][x].terrain->objectID = 1008;
                 strcpy(newLevel->levelMask[y][x].terrain->description, "Add description");
                 strcpy(newLevel->levelMask[y][x].terrain->maskID, "~");
-                strcpy(newLevel->levelMask[y][x].terrain->symbol, ".");
+                strcpy(newLevel->levelMask[y][x].terrain->symbol, "~");
+                strcpy(newLevel->levelMask[y][x].terrain->ACStype, "ACS_CKBOARD");
+                newLevel->levelMask[y][x].terrain->bold = false;
+                newLevel->levelMask[y][x].terrain->dim = false;
                 newLevel->levelMask[y][x].tileContents->terrain = true;
-                //newLevel->levelMask[y][x].terrain->symColor = add color
+                newLevel->levelMask[y][x].tileProperties->impass = true;
+                newLevel->levelMask[y][x].terrain->symColor = 20;
                 //newLevel->levelMask[y][x].terrain->speedMod = add speed mod
                 newLevel->levelMask[y][x].terrain->damage = 0;
                 newLevel->levelMask[y][x].terrain->fammable = false;
@@ -116,7 +148,8 @@ Level * updateTerrain(int y, int x, bool hasTerrain, int objectID, Level * newLe
         strcpy(newLevel->levelMask[y][x].terrain->maskID, "\0");
         strcpy(newLevel->levelMask[y][x].terrain->symbol, "\0");
         newLevel->levelMask[y][x].tileContents->terrain = false;
-        //newLevel->levelMask[y][x].terrain->symColor = add color
+        newLevel->levelMask[y][x].tileProperties->impass = false;
+        newLevel->levelMask[y][x].terrain->symColor = 0;
         //newLevel->levelMask[y][x].terrain->speedMod = add speed mod
         newLevel->levelMask[y][x].terrain->damage = 0;
         newLevel->levelMask[y][x].terrain->fammable = false;

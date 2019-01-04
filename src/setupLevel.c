@@ -151,25 +151,29 @@ Level * generateBiome2(Level * newLevel)
                                     newLevel = updateTerrain(y, x, true, 1003, newLevel);  
                                     break;
                                 case 6:
-                                    newLevel = weighterRandomTerrain(y, x, 90, 50, 1003, 1003, newLevel);
+                                    newLevel = weightedRandomTerrain(y, x, 90, 50, 1003, 1003, newLevel);
                                     break;
                                 case 5:
-                                    newLevel = weighterRandomTerrain(y, x, 80, 40, 1003, 1003, newLevel);
+                                    newLevel = weightedRandomTerrain(y, x, 80, 40, 1003, 1003, newLevel);
                                     break;
                                 case 4:
-                                    newLevel = weighterRandomTerrain(y, x, 70, 30, 1003, 1003, newLevel);
+                                    newLevel = weightedRandomTerrain(y, x, 70, 30, 1003, 1003, newLevel);
                                     break;
                                 case 3:
-                                    newLevel = weighterRandomTerrain(y, x, 40, 20, 1006, 1006, newLevel);
+                                    newLevel = weightedRandomTerrain(y, x, 40, 20, 1006, 1006, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.006, 0.001, 1006, 2006, newLevel);
                                     break;
                                 case 2:
-                                    newLevel = weighterRandomTerrain(y, x, 60, 30, 1006, 1006, newLevel);
+                                    newLevel = weightedRandomTerrain(y, x, 60, 30, 1006, 1006, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.007, 0.001, 1006, 2006, newLevel);
                                     break;
                                 case 1:
-                                    newLevel = weighterRandomTerrain(y, x, 80, 50, 1006, 1006, newLevel);
+                                    newLevel = weightedRandomTerrain(y, x, 80, 50, 1006, 1006, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.0085, 0.002, 1006, 2006, newLevel);
                                     break;
                                 case 0:
-                                    newLevel = weighterRandomTerrain(y, x, 90, 60, 1006, 1006, newLevel);
+                                    newLevel = weightedRandomTerrain(y, x, 90, 60, 1006, 1006, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.009, 0.003, 1006, 2006, newLevel);
                                     break;
                             }
                             break;
@@ -177,34 +181,81 @@ Level * generateBiome2(Level * newLevel)
                             switch (b)
                             {
                                 case 9:
-                                    newLevel = weighterRandomTerrain(y, x, 30, 20, 1004, 1004, newLevel);
+                                    newLevel = weightedRandomTerrain(y, x, 30, 20, 1004, 1004, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.02, 0.01, 1001, 2001, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.02, 0.01, 1001, 2002, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.01, 0.001, 1001, 2003, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.01, 0.001, 1001, 2004, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.001, 0.001, 1001, 2005, newLevel);
                                     break;
                                 case 8:
-                                    newLevel = weighterRandomTerrain(y, x, 20, 10, 1004, 1004, newLevel);
+                                    newLevel = weightedRandomTerrain(y, x, 20, 10, 1004, 1004, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.02, 0.01, 1001, 2001, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.02, 0.01, 1001, 2002, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.01, 0.001, 1001, 2003, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.01, 0.001, 1001, 2004, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.001, 0.001, 1001, 2005, newLevel);
                                     break;
                                 case 7:
-                                    newLevel = weighterRandomTerrain(y, x, 10, 5, 1004, 1004, newLevel);
+                                    newLevel = weightedRandomTerrain(y, x, 10, 5, 1004, 1004, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.02, 0.01, 1001, 2001, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.02, 0.01, 1001, 2002, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.01, 0.001, 1001, 2003, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.01, 0.001, 1001, 2004, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.001, 0.001, 1001, 2005, newLevel);
                                     break;
                                 case 6:
-                                    newLevel = weighterRandomTerrain(y, x, 20, 10, 1001, 1002, newLevel);
+                                    newLevel = weightedRandomTerrain(y, x, 20, 10, 1001, 1002, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.03, 0.02, 1001, 2001, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.03, 0.02, 1001, 2002, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.01, 0.001, 1001, 2003, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.01, 0.001, 1001, 2004, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.001, 0.001, 1001, 2005, newLevel);
                                     break;
                                 case 5:
-                                    newLevel = weighterRandomTerrain(y, x, 30, 20, 1001, 1002, newLevel);
+                                    newLevel = weightedRandomTerrain(y, x, 30, 20, 1001, 1002, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.03, 0.02, 1001, 2001, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.03, 0.02, 1001, 2002, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.01, 0.001, 1001, 2003, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.01, 0.001, 1001, 2004, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.001, 0.001, 1001, 2005, newLevel);
                                     break;
                                 case 4:
-                                    newLevel = weighterRandomTerrain(y, x, 40, 30, 1001, 1002, newLevel);
+                                    newLevel = weightedRandomTerrain(y, x, 40, 30, 1001, 1002, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.02, 0.01, 1001, 2001, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.02, 0.01, 1001, 2002, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.01, 0.001, 1001, 2003, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.01, 0.001, 1001, 2004, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.001, 0.001, 1001, 2005, newLevel);
                                     break;
                                 case 3:
-                                    newLevel = weighterRandomTerrain(y, x, 50, 35, 1001, 1002, newLevel);
+                                    newLevel = weightedRandomTerrain(y, x, 50, 35, 1001, 1002, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.02, 0.01, 1001, 2001, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.02, 0.01, 1001, 2002, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.01, 0.001, 1001, 2003, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.01, 0.001, 1001, 2004, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.001, 0.001, 1001, 2005, newLevel);
                                     break;
                                 case 2:
-                                    newLevel = weighterRandomTerrain(y, x, 60, 40, 1001, 1002, newLevel);
+                                    newLevel = weightedRandomTerrain(y, x, 60, 40, 1001, 1002, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.01, 0.01, 1001, 2001, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.01, 0.01, 1001, 2002, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.01, 0.006, 1001, 2003, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.01, 0.006, 1001, 2004, newLevel);
                                     break;
                                 case 1:
-                                    newLevel = weighterRandomTerrain(y, x, 70, 50, 1001, 1002, newLevel);
+                                    newLevel = weightedRandomTerrain(y, x, 70, 50, 1001, 1002, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.005, 0.0025, 1001, 2001, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.005, 0.0025, 1001, 2002, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.01, 0.005, 1001, 2003, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.01, 0.005, 1001, 2004, newLevel);
                                     break;
                                 case 0:
-                                    newLevel = weighterRandomTerrain(y, x, 80, 60, 1001, 1002, newLevel);
+                                    newLevel = weightedRandomTerrain(y, x, 80, 60, 1001, 1002, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.002, 0.001, 1001, 2001, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.002, 0.001, 1001, 2002, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.01, 0.001, 1001, 2003, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.01, 0.001, 1001, 2004, newLevel);
                                     break;
                             }
                             break;
@@ -212,34 +263,34 @@ Level * generateBiome2(Level * newLevel)
                             switch (b)
                             {
                                 case 9:
-                                    newLevel = weighterRandomTerrain(y, x, 99, 80, 1004, 1004, newLevel);
+                                    newLevel = weightedRandomTerrain(y, x, 99, 80, 1004, 1004, newLevel);
                                     break;
                                 case 8:
-                                    newLevel = weighterRandomTerrain(y, x, 90, 80, 1004, 1004, newLevel);
+                                    newLevel = weightedRandomTerrain(y, x, 99, 80, 1004, 1004, newLevel);
                                     break;
                                 case 7:
-                                    newLevel = weighterRandomTerrain(y, x, 80, 60, 1004, 1004, newLevel);
+                                    newLevel = weightedRandomTerrain(y, x, 90, 80, 1004, 1004, newLevel);
                                     break;
                                 case 6:
-                                    newLevel = weighterRandomTerrain(y, x, 50, 44, 1004, 1004, newLevel);
+                                    newLevel = weightedRandomTerrain(y, x, 90, 75, 1004, 1004, newLevel);
                                     break;
                                 case 5:
-                                    newLevel = weighterRandomTerrain(y, x, 40, 20, 1004, 1004, newLevel);
+                                    newLevel = weightedRandomTerrain(y, x, 80, 65, 1004, 1004, newLevel);
                                     break;
                                 case 4:
-                                    newLevel = weighterRandomTerrain(y, x, 20, 10, 1004, 1004, newLevel);
+                                    newLevel = weightedRandomTerrain(y, x, 75, 55, 1004, 1004, newLevel);
                                     break;
                                 case 3:
-                                    newLevel = weighterRandomTerrain(y, x, 10, 5, 1004, 1004, newLevel);
+                                    newLevel = weightedRandomTerrain(y, x, 10, 5, 1004, 1004, newLevel);
                                     break;
                                 case 2:
-                                    newLevel = weighterRandomTerrain(y, x, 25, 15, 1004, 1004, newLevel);
+                                    newLevel = weightedRandomTerrain(y, x, 5, 1, 1004, 1004, newLevel);
                                     break;
                                 case 1:
-                                    newLevel = weighterRandomTerrain(y, x, 35, 20, 1004, 1004, newLevel);
+                                    newLevel = weightedRandomTerrain(y, x, 1, 1, 1004, 1004, newLevel);
                                     break;
                                 case 0:
-                                    newLevel = weighterRandomTerrain(y, x, 45, 30, 1004, 1004, newLevel);
+                                    newLevel = weightedRandomTerrain(y, x, 0, 0, 1004, 1004, newLevel);
                                     break;
                             }
                             break;
@@ -247,34 +298,34 @@ Level * generateBiome2(Level * newLevel)
                             switch (b)
                             {
                                 case 9:
-                                    newLevel = weighterRandomTerrain(y, x, 99, 80, 1002, 1002, newLevel);
+                                    newLevel = weightedRandomTerrain(y, x, 99, 80, 1002, 1002, newLevel);
                                     break;
                                 case 8:
-                                    newLevel = weighterRandomTerrain(y, x, 95, 80, 1002, 1002, newLevel);
+                                    newLevel = weightedRandomTerrain(y, x, 95, 80, 1002, 1002, newLevel);
                                     break;
                                 case 7:
-                                    newLevel = weighterRandomTerrain(y, x, 85, 70, 1002, 1002, newLevel);
+                                    newLevel = weightedRandomTerrain(y, x, 85, 70, 1002, 1002, newLevel);
                                     break;
                                 case 6:
-                                    newLevel = weighterRandomTerrain(y, x, 80, 60, 1002, 1002, newLevel);
+                                    newLevel = weightedRandomTerrain(y, x, 80, 60, 1002, 1002, newLevel);
                                     break;
                                 case 5:
-                                    newLevel = weighterRandomTerrain(y, x, 75, 50, 1002, 1002, newLevel);
+                                    newLevel = weightedRandomTerrain(y, x, 75, 50, 1002, 1002, newLevel);
                                     break;
                                 case 4:
-                                    newLevel = weighterRandomTerrain(y, x, 70, 40, 1002, 1002, newLevel);
+                                    newLevel = weightedRandomTerrain(y, x, 70, 40, 1002, 1002, newLevel);
                                     break;
                                 case 3:
-                                    newLevel = weighterRandomTerrain(y, x, 65, 35, 1002, 1002, newLevel);
+                                    newLevel = weightedRandomTerrain(y, x, 65, 35, 1002, 1002, newLevel);
                                     break;
                                 case 2:
-                                    newLevel = weighterRandomTerrain(y, x, 60, 30, 1002, 1002, newLevel);
+                                    newLevel = weightedRandomTerrain(y, x, 60, 30, 1002, 1002, newLevel);
                                     break;
                                 case 1:
-                                    newLevel = weighterRandomTerrain(y, x, 35, 15, 1002, 1002, newLevel);
+                                    newLevel = weightedRandomTerrain(y, x, 35, 15, 1002, 1002, newLevel);
                                     break;
                                 case 0:
-                                    newLevel = weighterRandomTerrain(y, x, 30, 10, 1002, 1002, newLevel);
+                                    newLevel = weightedRandomTerrain(y, x, 30, 10, 1002, 1002, newLevel);
                                     break;
                             }
                             break;
@@ -282,28 +333,52 @@ Level * generateBiome2(Level * newLevel)
                             switch (b)
                             {
                                 case 9:
-                                    newLevel = weighterRandomTerrain(y, x, 75, 60, 1002, 1002, newLevel);
+                                    newLevel = weightedRandomTerrain(y, x, 75, 60, 1002, 1002, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.01, 0.01, 1002, 2003, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.01, 0.01, 1002, 2003, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.01, 0.01, 1002, 2001, newLevel);
+                                    newLevel = weightedRandomTerrainLlgObj(y , x, 1, 1, 1002, 2003, newLevel);
+                                    newLevel = weightedRandomTerrainLlgObj(y , x, 1, 1, 1002, 2004, newLevel);
+                                    newLevel = weightedRandomTerrainLlgObj(y , x, 1, 1, 1002, 2001, newLevel);
                                     break;
                                 case 8:
-                                    newLevel = weighterRandomTerrain(y, x, 70, 55, 1002, 1002, newLevel);
+                                    newLevel = weightedRandomTerrain(y, x, 70, 55, 1002, 1002, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.01, 0.01, 1002, 2003, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.01, 0.01, 1002, 2003, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.01, 0.01, 1002, 2001, newLevel);
                                     break;
                                 case 7:
-                                    newLevel = weighterRandomTerrain(y, x, 65, 50, 1002, 1002, newLevel);
+                                    newLevel = weightedRandomTerrain(y, x, 65, 50, 1002, 1002, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.01, 0.01, 1002, 2003, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.01, 0.01, 1002, 2003, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.01, 0.01, 1002, 2001, newLevel);
                                     break;
                                 case 6:
-                                    newLevel = weighterRandomTerrain(y, x, 60, 45, 1002, 1002, newLevel);
+                                    newLevel = weightedRandomTerrain(y, x, 60, 45, 1002, 1002, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.01, 0.01, 1002, 2003, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.01, 0.01, 1002, 2003, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.01, 0.01, 1002, 2001, newLevel);
                                     break;
                                 case 5:
-                                    newLevel = weighterRandomTerrain(y, x, 55, 40, 1002, 1002, newLevel);
+                                    newLevel = weightedRandomTerrain(y, x, 55, 40, 1002, 1002, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.005, 0.005, 1002, 2003, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.005, 0.005, 1002, 2003, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.005, 0.005, 1002, 2001, newLevel);
                                     break;
                                 case 4:
-                                    newLevel = weighterRandomTerrain(y, x, 30, 20, 1005, 1005, newLevel);
+                                    newLevel = weightedRandomTerrain(y, x, 30, 20, 1005, 1005, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.005, 0.005, 1005, 2003, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.005, 0.005, 1005, 2003, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.005, 0.005, 1005, 2001, newLevel);
                                     break;
                                 case 3:
-                                    newLevel = weighterRandomTerrain(y, x, 50, 30, 1005, 1005, newLevel);
+                                    newLevel = weightedRandomTerrain(y, x, 50, 30, 1005, 1005, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.003, 0.005, 1005, 2003, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.003, 0.005, 1005, 2003, newLevel);
+                                    newLevel = weightedFractTerrainLlgObj(y, x, 0.002, 0.001, 1005, 2001, newLevel);
                                     break;
                                 case 2:
-                                    newLevel = weighterRandomTerrain(y, x, 75, 40, 1005, 1005, newLevel);
+                                    newLevel = weightedRandomTerrain(y, x, 75, 40, 1005, 1005, newLevel);
                                     break;
                                 case 1:
                                     newLevel = updateTerrain(y, x, true, 1007, newLevel);
@@ -317,34 +392,34 @@ Level * generateBiome2(Level * newLevel)
                             switch (b)
                             {
                                 case 9:
-                                    newLevel = weighterRandomTerrain(y, x, 90, 70, 1004, 1004, newLevel);
+                                    newLevel = weightedRandomTerrain(y, x, 90, 70, 1004, 1004, newLevel);
                                     break;
                                 case 8:
-                                    newLevel = weighterRandomTerrain(y, x, 80, 50, 1004, 1004, newLevel);
+                                    newLevel = weightedRandomTerrain(y, x, 80, 50, 1004, 1004, newLevel);
                                     break;
                                 case 7:
-                                    newLevel = weighterRandomTerrain(y, x, 60, 40, 1004, 1004, newLevel);
+                                    newLevel = weightedRandomTerrain(y, x, 60, 40, 1004, 1004, newLevel);
                                     break;
                                 case 6:
-                                    newLevel = weighterRandomTerrain(y, x, 50, 30, 1004, 1004, newLevel);
+                                    newLevel = weightedRandomTerrain(y, x, 50, 30, 1004, 1004, newLevel);
                                     break;
                                 case 5:
-                                    newLevel = weighterRandomTerrain(y, x, 30, 10, 1004, 1004, newLevel);
+                                    newLevel = weightedRandomTerrain(y, x, 30, 10, 1004, 1004, newLevel);
                                     break;
                                 case 4:
-                                    newLevel = weighterRandomTerrain(y, x, 10, 5, 1004, 1004, newLevel);
+                                    newLevel = weightedRandomTerrain(y, x, 10, 5, 1004, 1004, newLevel);
                                     break;
                                 case 3:
-                                    newLevel = weighterRandomTerrain(y, x, 5, 5, 1004, 1004, newLevel);
+                                    newLevel = weightedRandomTerrain(y, x, 5, 5, 1004, 1004, newLevel);
                                     break;
                                 case 2:
-                                    newLevel = weighterRandomTerrain(y, x, 20, 10, 1001, 1002, newLevel);
+                                    newLevel = weightedRandomTerrain(y, x, 20, 10, 1001, 1002, newLevel);
                                     break;
                                 case 1:
-                                    newLevel = weighterRandomTerrain(y, x, 30, 15, 1001, 1002, newLevel);
+                                    newLevel = weightedRandomTerrain(y, x, 30, 15, 1001, 1002, newLevel);
                                     break;
                                 case 0:
-                                    newLevel = weighterRandomTerrain(y, x, 60, 20, 1001, 1002, newLevel);
+                                    newLevel = weightedRandomTerrain(y, x, 60, 20, 1001, 1002, newLevel);
                                     break;
                             }
                             break;
@@ -356,127 +431,96 @@ Level * generateBiome2(Level * newLevel)
     return newLevel;
 }
 
-Level * weighterRandomTerrain(int y, int x, int wghtPercent, int defPercent, int objectIdMatch, int terrainTypeAdd, Level * newLevel)
+Level * weightedRandomTerrain(int y, int x, int wghtpercent, int defpercent, int objectidmatch, int terraintypeadd, Level * newlevel)
 {
-    if ((y - 1 >= 0) && (y + 1 <= newLevel->levelHeight) && (x - 1 >= 0) && (x + 1 <= newLevel->levelWidth))    //fix this !!! creates a border of dirt around the entire map !!!
+    if ((y - 1 >= 0) && (y + 1 <= newlevel->levelHeight) && (x - 1 >= 0) && (x + 1 <= newlevel->levelWidth))    //fix this !!! creates a border of dirt around the entire map !!!
     {
         for (int i = 0; i < 2; i++)
         {
             for (int j = 0; j < 2; j++)
             {
-                if ((newLevel->levelMask[y + i][x + j].terrain->objectID == objectIdMatch) || (newLevel->levelMask[y - i][x - j].terrain->objectID == objectIdMatch) || (newLevel->levelMask[y - i][x + j].terrain->objectID == objectIdMatch) || (newLevel->levelMask[y + i][x - j].terrain->objectID == objectIdMatch))
+                if ((newlevel->levelMask[y + i][x + j].terrain->objectID == objectidmatch) || (newlevel->levelMask[y - i][x - j].terrain->objectID == objectidmatch) || (newlevel->levelMask[y - i][x + j].terrain->objectID == objectidmatch) || (newlevel->levelMask[y + i][x - j].terrain->objectID == objectidmatch))
                 {
-                    if ((rand() % 101) < wghtPercent)
+                    if ((rand() % 101) < wghtpercent)
                     {
-                        newLevel = updateTerrain(y, x, true, terrainTypeAdd, newLevel); 
+                        newlevel = updateTerrain(y, x, true, terraintypeadd, newlevel); 
+                    }
+                }
+                else
+                {
+                    if ((rand() % 101) == defpercent)
+                    {
+                        newlevel = updateTerrain(y, x, true, terraintypeadd, newlevel);
+                    }
+                }
+            }
+        }
+    }
+    return newlevel;
+}
+
+/* If terrain == terrainIdMatch then use random percent given, else use other percentage  */
+Level * weightedRandomTerrainLlgObj(int y, int x, int wghtPercent, int defPercent, int terrainIdMatch, int objectTypeAdd, Level * newlevel)
+{
+    int rndNum;
+    if (!newlevel->levelMask[y][x].tileContents->lgObject)
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            for (int j = 0; j < 2; j++)
+            {
+                if ((newlevel->levelMask[y][x].terrain->objectID == terrainIdMatch))
+                {
+                    if ((rndNum =(rand() % 101)) < wghtPercent)
+                    {
+                        newlevel = updateLgObject(y, x, true, objectTypeAdd, newlevel); 
+                        //mvprintw(0, newlevel->levelWidth + 2,"%d",rndNum);
+                        //getch();
                     }
                 }
                 else
                 {
                     if ((rand() % 101) == defPercent)
                     {
-                        newLevel = updateTerrain(y, x, true, terrainTypeAdd, newLevel);
+                        newlevel = updateLgObject(y, x, true, objectTypeAdd, newlevel);
                     }
                 }
             }
         }
     }
-    return newLevel;
+    return newlevel;
 }
 
-
-Level * generateBiome(Level * newLevel)
+/* for instances where percentage is < 1  */
+Level * weightedFractTerrainLlgObj(int y, int x, double wghtPercent, double defPercent, int terrainIdMatch, int objectTypeAdd, Level * newlevel)
 {
-    int i, y, x, rndY, rndX, counter, counterMax, rndDir, rndSeedPts;
-    counterMax = ((newLevel->biomeDensity * .01) * (newLevel->levelWidth * newLevel->levelHeight));
-    rndSeedPts = ((rand() % (newLevel->biomeMaxSeed - newLevel->biomeMinSeed + 1)) + newLevel->biomeMinSeed);
-    counter = 0;
-    /* Seed pts for nadomization  */
-    for(i =0; i < rndSeedPts; i++)
+    double rndNum;
+    if (!newlevel->levelMask[y][x].tileContents->lgObject)
     {
-        rndY = (rand() % newLevel->levelHeight);
-        rndX = (rand() % newLevel->levelWidth);
-        //newLevel->levelMask[rndY][rndX].tileContents->envmnt = true;      //######## FIX THIS #########
-        newLevel = updateBiome(rndY, rndX, true, newLevel);
-    }
-    /*  0 1 2
-     *  7 R 3
-     *  6 5 4
-     * */
-    while (counter < counterMax)
-    {
-        for (y = 0; y < newLevel->levelHeight; y++)
+        for (int i = 0; i < 2; i++)
         {
-            for(x = 0; x < newLevel->levelWidth; x++)
+            for (int j = 0; j < 2; j++)
             {
-                if (strcmp(newLevel->levelMask[y][x].world->maskID, "B") == 0)
+                if ((newlevel->levelMask[y][x].terrain->objectID == terrainIdMatch))
                 {
-                    rndDir = (rand() % 8);
-                    switch(rndDir)
+                    if ((rndNum = (double) rand() / (RAND_MAX)) < wghtPercent)
                     {
-                        case 0:  
-                            if(((y - 1) >= 0) && ((x - 1 ) >= 0) && (strcmp(newLevel->levelMask[y - 1][x - 1].world->maskID, "B") != 0))
-                            {
-                                newLevel = updateBiome(y - 1, x - 1, true, newLevel);
-                                counter++;
-                            }
-                        case 1:
-                            if(((y - 1) >= 0) && (strcmp(newLevel->levelMask[y - 1][x].world->maskID, "B") != 0))
-                            {
-                                newLevel = updateBiome(y - 1, x, true, newLevel);
-                                counter++;
-                            }
-                            break;
-                        case 2:
-                            if(((y - 1) >= 0) && ((x + 1 ) <= newLevel->levelWidth) && (strcmp(newLevel->levelMask[y - 1][x + 1].world->maskID, "B") != 0))
-                            {
-                                newLevel = updateBiome(y - 1, x + 1, true, newLevel);
-                                counter++;
-                            }
-                            break;
-                        case 3:
-                            if(((x + 1 ) <= newLevel->levelWidth) && (strcmp(newLevel->levelMask[y][x + 1].world->maskID, "B") != 0))
-                            {
-                                newLevel = updateBiome(y, x + 1, true, newLevel);
-                                counter++;
-                            }
-                            break;
-                        case 4:
-                            if(((y + 1) <= newLevel->levelHeight) && ((x + 1 ) <= newLevel->levelWidth) && (strcmp(newLevel->levelMask[y + 1][x + 1].world->maskID, "B") != 0))
-                            {
-                                newLevel = updateBiome(y + 1, x + 1, true, newLevel);
-                                counter++;
-                            }
-                            break;
-                        case 5:
-                            if(((y + 1) >= newLevel->levelHeight) && (strcmp(newLevel->levelMask[y + 1][x].world->maskID, "B") != 0))
-                            {
-                                newLevel = updateBiome(y + 1, x, true, newLevel);
-                                counter++;
-                            }
-                            break;
-                        case 6:
-                            if(((y + 1) >= newLevel->levelHeight) && ((x - 1 ) >= 0) && (strcmp(newLevel->levelMask[y + 1][x - 1].world->maskID, "B") != 0))
-                            {
-                                newLevel = updateBiome(y + 1, x - 1, true, newLevel);
-                                counter++;
-                            }
-                            break;
-                        case 7:
-                            if(((x - 1 ) >= 0) && (strcmp(newLevel->levelMask[y][x - 1].world->maskID, "B") != 0))
-                            {
-                                newLevel = updateBiome(y, x - 1, true, newLevel);
-                                counter++;
-                            }
-                            break;
-                        default:
-                            break;
+                        newlevel = updateLgObject(y, x, true, objectTypeAdd, newlevel); 
+                        //mvprintw(0, newlevel->levelWidth + 2,"%f",rndNum);
+                        //getch();
+                    }
+                }
+                else
+                {
+                    if ((rndNum = (double) rand() / (RAND_MAX)) < defPercent)
+                    {
+                        newlevel = updateLgObject(y, x, true, objectTypeAdd, newlevel);
                     }
                 }
             }
         }
     }
-    return newLevel;
+    return newlevel;
 }
 
 Level * updateBiome(int y, int x, bool hasBiome, Level * newLevel)
@@ -782,3 +826,97 @@ Level * updateWorldTile(Level * newLevel)
 {
 
 }
+
+
+/*Level * generateBiome(Level * newLevel)
+{
+    int i, y, x, rndY, rndX, counter, counterMax, rndDir, rndSeedPts;
+    counterMax = ((newLevel->biomeDensity * .01) * (newLevel->levelWidth * newLevel->levelHeight));
+    rndSeedPts = ((rand() % (newLevel->biomeMaxSeed - newLevel->biomeMinSeed + 1)) + newLevel->biomeMinSeed);
+    counter = 0;
+    // Seed pts for nadomization  
+    for(i =0; i < rndSeedPts; i++)
+    {
+        rndY = (rand() % newLevel->levelHeight);
+        rndX = (rand() % newLevel->levelWidth);
+        //newLevel->levelMask[rndY][rndX].tileContents->envmnt = true;      //######## FIX THIS #########
+        newLevel = updateBiome(rndY, rndX, true, newLevel);
+    }
+    //  0 1 2
+    //  7 R 3
+    //  6 5 4
+    while (counter < counterMax)
+    {
+        for (y = 0; y < newLevel->levelHeight; y++)
+        {
+            for(x = 0; x < newLevel->levelWidth; x++)
+            {
+                if (strcmp(newLevel->levelMask[y][x].world->maskID, "B") == 0)
+                {
+                    rndDir = (rand() % 8);
+                    switch(rndDir)
+                    {
+                        case 0:  
+                            if(((y - 1) >= 0) && ((x - 1 ) >= 0) && (strcmp(newLevel->levelMask[y - 1][x - 1].world->maskID, "B") != 0))
+                            {
+                                newLevel = updateBiome(y - 1, x - 1, true, newLevel);
+                                counter++;
+                            }
+                        case 1:
+                            if(((y - 1) >= 0) && (strcmp(newLevel->levelMask[y - 1][x].world->maskID, "B") != 0))
+                            {
+                                newLevel = updateBiome(y - 1, x, true, newLevel);
+                                counter++;
+                            }
+                            break;
+                        case 2:
+                            if(((y - 1) >= 0) && ((x + 1 ) <= newLevel->levelWidth) && (strcmp(newLevel->levelMask[y - 1][x + 1].world->maskID, "B") != 0))
+                            {
+                                newLevel = updateBiome(y - 1, x + 1, true, newLevel);
+                                counter++;
+                            }
+                            break;
+                        case 3:
+                            if(((x + 1 ) <= newLevel->levelWidth) && (strcmp(newLevel->levelMask[y][x + 1].world->maskID, "B") != 0))
+                            {
+                                newLevel = updateBiome(y, x + 1, true, newLevel);
+                                counter++;
+                            }
+                            break;
+                        case 4:
+                            if(((y + 1) <= newLevel->levelHeight) && ((x + 1 ) <= newLevel->levelWidth) && (strcmp(newLevel->levelMask[y + 1][x + 1].world->maskID, "B") != 0))
+                            {
+                                newLevel = updateBiome(y + 1, x + 1, true, newLevel);
+                                counter++;
+                            }
+                            break;
+                        case 5:
+                            if(((y + 1) >= newLevel->levelHeight) && (strcmp(newLevel->levelMask[y + 1][x].world->maskID, "B") != 0))
+                            {
+                                newLevel = updateBiome(y + 1, x, true, newLevel);
+                                counter++;
+                            }
+                            break;
+                        case 6:
+                            if(((y + 1) >= newLevel->levelHeight) && ((x - 1 ) >= 0) && (strcmp(newLevel->levelMask[y + 1][x - 1].world->maskID, "B") != 0))
+                            {
+                                newLevel = updateBiome(y + 1, x - 1, true, newLevel);
+                                counter++;
+                            }
+                            break;
+                        case 7:
+                            if(((x - 1 ) >= 0) && (strcmp(newLevel->levelMask[y][x - 1].world->maskID, "B") != 0))
+                            {
+                                newLevel = updateBiome(y, x - 1, true, newLevel);
+                                counter++;
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        }
+    }
+    return newLevel;
+}*/

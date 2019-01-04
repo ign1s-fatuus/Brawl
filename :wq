@@ -6,11 +6,11 @@
 #include "level.h"
 #include "world.h"
 #include <unistd.h>
-#include <termios.h>
 
 
 int printData(Level * newLevel);
 int testPrintMask(Level * newLevel);
+int testHeightMap(Level * newLevel);
 
 Level * allocateMemory(Level * newLevel);
 int freeMemory(Level * newLevel);
@@ -19,11 +19,8 @@ int main()
 {
     
     //initNcurses();
-    initscr();
     srand(time(0));
-    noecho();
-    curs_set(0);
-    //nodelay(stdscr,TRUE);
+
     start_color();
 
     Level * newLevel;
@@ -32,8 +29,6 @@ int main()
     newLevel = generateWorld(newLevel);
     
     newLevel = allocateMemory(newLevel);
-    newLevel = buildColorPalette(newLevel);
-    newLevel = setUpPlayer(newLevel);
     
     printData(newLevel);
     getch();
@@ -48,17 +43,10 @@ int main()
     clear();
     testPrintMask(newLevel);
     getch();
-    drawMap(newLevel);
+    testHeightMap(newLevel);
     getch();
 
-    /* Game Loop  */
-    int keyInput;
-    while ((keyInput = getch()) != 'q')
-    {
-        newLevel = handleInput(keyInput, newLevel);
-    }
-
-    endwin();
+    //endwin();
 
     freeMemory(newLevel);
     return 0;
@@ -69,7 +57,6 @@ Level * allocateMemory(Level * newLevel)
     int x, y;
     
     newLevel->bar = malloc(sizeof(Bar));
-    newLevel->newPlayer = malloc(sizeof(Player));
     
     newLevel->levelMask = (Tile **) malloc(sizeof(Tile) * newLevel->levelHeight);
     for (y = 0; y <= newLevel->levelHeight; y++)
@@ -83,7 +70,6 @@ Level * allocateMemory(Level * newLevel)
             newLevel->levelMask[y][x].terrain = (Terrain *) malloc(sizeof(Terrain));
             newLevel->levelMask[y][x].lgObject = (LgObject *) malloc(sizeof(Terrain));
             newLevel->levelMask[y][x].smObject = (SmObject *) malloc(sizeof(Terrain));
-            newLevel->levelMask[y][x].tileProperties = (TileProperties *) malloc(sizeof(TileProperties));
             //strcpy(newLevel->levelMask[y][x].building->maskID, "e");
         }
     }
@@ -155,3 +141,31 @@ int testPrintMask(Level * newLevel)
     return 0;
 }
 
+int testHeightMap(Level * newLevel)
+{
+    int y, x;
+    system("clear");
+    int maxHeight, maxWidth;
+    getmaxyx(stdscr, maxHeight, maxWidth);
+    printf("%d", maxHeight);
+    getchar();
+
+    printf("\033[?1049h\033[H");
+    while (1)
+    {
+    for (y = 0; y <= newLevel->levelHeight; y++)
+        {
+            for (x = 0; x <= newLevel->levelWidth; x++)
+            {
+                printf("\033[38;5;%dm\033[48;5;%dm\033[1m%s\033[0m", newLevel->levelMask[y][x].terrain->symColor, newLevel->levelMask[y][x].terrain->height + 234 + 1, newLevel->levelMask[y][x].terrain->symbol);
+                //sleep(1);
+                fflush(stdout);
+            }
+            printf("\n");
+        }
+    printf ("\n\n\n\n");
+    }
+    printf("\033[?1049l");
+    getchar();
+    return 0;
+}
