@@ -36,6 +36,11 @@ typedef struct Level
     double perlinFreq;
     double perlinPersist;
     int cPal[256][256];
+    Coordinates ** drawWindowCoords;
+    Coordinates * drawWinCorner;
+    int drawWinMaxY;
+    int drawWinMaxX;
+    Windows * newWindows;
 
     struct Tile ** levelMask;       // data map of game area
     struct Bar * bar;
@@ -208,12 +213,11 @@ typedef struct Tile
 } Tile;
 */
 
-/* Dclaration of functions */
+/* Declaration of functions */
 Level * generateLevel(Level * newLevel, int levelNumber);
 Tile ** createLevelMask(Level * newLevel);
 Level * generateBar(Level * newLevel);
 Level * generateBiome(Level * newLevel);
-Level * updateWorldTile(Level * newLevel);
 Level * updateBiome(int y, int x, bool hasBiome, Level * newLevel);
 Level * generateTerrain(Level * newLevel);
 /* move to separate tile header file */
@@ -225,12 +229,17 @@ Level * generateBiome2(Level * newLevel);
 Level * weightedRandomTerrain(int y, int x, int wghtPercent, int defPercent, int objectIdMatch, int objectIdAdd, Level * newLevel);
 Level * weightedRandomTerrainLlgObj(int y, int x, int wghtPercent, int defPercent, int terrainIdMatch, int objectTypeAdd, Level * newlevel);
 Level * weightedFractTerrainLlgObj(int y, int x, double wghtPercent, double defPercent, int terrainIdMatch, int objectTypeAdd, Level * newlevel);
+Level * getStartingPosition(Level * newLevel);
 /* Color functions -- move to own header file */
 Level * buildColorPalette(Level * newLevel);
 
 /* render and map draw function -- move to own header file  */
 int drawMap(Level * newLevel);
-int redrawMapElement(int y, int x, Level * newLevel);
+int drawMapElement(int y, int x, Level * newLevel);
+int drawMapElementInWindow(int y, int x, Windows * newWindows, Level * newLevel);
+int getBGColor(int y, int x, Level * newLevel);
+Level * drawMapInWindow(Windows * newWindows, Level * newLevel);
+Level * updateMapWindow(int moveDir, Level * newLevel);
 
 /* plaer functions -- move to own header file  */
 Level * setUpPlayer(Level * newLevel);

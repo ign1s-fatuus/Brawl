@@ -16,7 +16,7 @@ Level * updateLgObject(int y, int x, bool hasLgObject, int objectID, Level * new
                 strcpy(newLevel->levelMask[y][x].lgObject->description, "Add description");
                 strcpy(newLevel->levelMask[y][x].lgObject->maskID, "t");
                 strcpy(newLevel->levelMask[y][x].lgObject->symbol, "t");
-                newLevel->levelMask[y][x].lgObject->symColor = 64;
+                newLevel->levelMask[y][x].lgObject->symColor = 59;
                 newLevel->levelMask[y][x].lgObject->bold = false;
                 newLevel->levelMask[y][x].lgObject->dim = false;
                 //newLevel->levelMask[y][x].lgObject->speedMod = add speed mod
@@ -35,7 +35,7 @@ Level * updateLgObject(int y, int x, bool hasLgObject, int objectID, Level * new
                 strcpy(newLevel->levelMask[y][x].lgObject->description, "Add description");
                 strcpy(newLevel->levelMask[y][x].lgObject->maskID, "T");
                 strcpy(newLevel->levelMask[y][x].lgObject->symbol, "T");
-                newLevel->levelMask[y][x].lgObject->symColor = 64;
+                newLevel->levelMask[y][x].lgObject->symColor = 59;
                 newLevel->levelMask[y][x].lgObject->bold = true;
                 newLevel->levelMask[y][x].lgObject->dim = false;
                 //newLevel->levelMask[y][x].lgObject->speedMod = add speed mod
@@ -111,7 +111,7 @@ Level * updateLgObject(int y, int x, bool hasLgObject, int objectID, Level * new
                 strcpy(newLevel->levelMask[y][x].lgObject->name, "cactus");
                 strcpy(newLevel->levelMask[y][x].lgObject->description, "Add description");
                 strcpy(newLevel->levelMask[y][x].lgObject->maskID, "c");
-                strcpy(newLevel->levelMask[y][x].lgObject->symbol, "t");
+                strcpy(newLevel->levelMask[y][x].lgObject->symbol, "\u03C8");
                 newLevel->levelMask[y][x].lgObject->symColor = 28;
                 newLevel->levelMask[y][x].lgObject->bold = false;
                 newLevel->levelMask[y][x].lgObject->dim = false;

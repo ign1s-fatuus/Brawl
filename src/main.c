@@ -7,6 +7,7 @@
 #include "world.h"
 #include <unistd.h>
 #include <termios.h>
+#include <locale.h>
 
 
 int printData(Level * newLevel);
@@ -17,7 +18,7 @@ int freeMemory(Level * newLevel);
 
 int main()
 {
-    
+    setlocale(LC_ALL, "");
     //initNcurses();
     initscr();
     srand(time(0));
@@ -28,34 +29,42 @@ int main()
 
     Level * newLevel;
     newLevel = malloc(sizeof(Level));
+    
+    Windows * newWindows = malloc(sizeof(Windows));
+    
+    getmaxyx(stdscr, newLevel->drawWinMaxY, newLevel->drawWinMaxX);
+    newLevel->drawWinMaxY = ((newLevel->drawWinMaxY / 5) * 4) - 2;
+    newLevel->drawWinMaxX = ((newLevel->drawWinMaxX / 5) * 4) - 2;
 
     newLevel = generateWorld(newLevel);
-    
     newLevel = allocateMemory(newLevel);
+    
     newLevel = buildColorPalette(newLevel);
     newLevel = setUpPlayer(newLevel);
-    
+
     printData(newLevel);
     getch();
 
     newLevel = generateLevel(newLevel, 1);
     //newLevel->levelMask = createLevelMask(newLevel); 
     
-    //Windows * gameWindows = malloc(sizeof(Windows));             // rewrtie to malloc Windows in main and not in function
-    //gameWindows = drawBorders();
-    //refreshWindows(gameWindows);
+    newWindows = drawBorders(newWindows);
+    newLevel = drawMapInWindow(newWindows, newLevel);
+    refreshWindows(newWindows);
+    getch();
 
-    clear();
-    testPrintMask(newLevel);
-    getch();
-    drawMap(newLevel);
-    getch();
+    //testPrintMask(newLevel);
+    //getch();
+    //drawMap(newLevel);
+    //getch();
 
     /* Game Loop  */
     int keyInput;
     while ((keyInput = getch()) != 'q')
     {
         newLevel = handleInput(keyInput, newLevel);
+        newLevel = drawMapInWindow(newWindows, newLevel);
+        refreshWindows(newWindows);
     }
 
     endwin();
@@ -68,8 +77,26 @@ Level * allocateMemory(Level * newLevel)
 {
     int x, y;
     
+    //printw("%d, %d", newLevel->drawWinMaxY, newLevel->drawWinMaxX);
+    //getch();
+    
     newLevel->bar = malloc(sizeof(Bar));
     newLevel->newPlayer = malloc(sizeof(Player));
+    newLevel->drawWinCorner =(Coordinates *)malloc(sizeof(Coordinates));
+    
+    //newLevel->newWindows = (Windows *)malloc(sizeof(Windows));
+
+    newLevel->drawWindowCoords = (Coordinates **)malloc(sizeof(Coordinates) * newLevel->drawWinMaxY);
+    for (y = 0; y < newLevel->drawWinMaxY; y++)
+    {
+        newLevel->drawWindowCoords[y] = (Coordinates *)malloc(sizeof(Coordinates) * newLevel->drawWinMaxX);
+        //for (x = 0; x < newLevel->drawWinMaxX; x++)
+        //{
+            //newLevel->drawWindowCoords[y][x].y = y;
+            //newLevel->drawWindowCoords[y][x].x = x;
+            //mvprintw(newLevel->drawWindowCoords[y][x].y, newLevel->drawWindowCoords[y][x].x, "1");
+        //}
+    }
     
     newLevel->levelMask = (Tile **) malloc(sizeof(Tile) * newLevel->levelHeight);
     for (y = 0; y <= newLevel->levelHeight; y++)

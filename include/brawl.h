@@ -29,7 +29,7 @@ typedef struct Windows
 /* Function Declarations */
 
 int initNcurses();
-Windows * drawBorders();
+Windows * drawBorders(Windows * newWindows);
 int checkTermSize();
 int refreshWindows(Windows * newWindows);
 

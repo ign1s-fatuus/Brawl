@@ -44,13 +44,14 @@ int main()
         {
             if (pair[f][b] != 0)
             {
-                attron(COLOR_PAIR(pair[f][b]));
+                //attron(COLOR_PAIR(pair[f][b]));
+                color_set(pair[f][b], NULL);
                 addch(ACS_CKBOARD);
                 addch(ACS_CKBOARD);
                 printw("(%d,%d)", f, b); 
                 addch(ACS_CKBOARD);
                 addch(ACS_CKBOARD);
-                attroff(COLOR_PAIR(pair[f][b]));
+                //attroff(COLOR_PAIR(pair[f][b]));
 
                 counter++;
                 if (counter == 10)
@@ -62,14 +63,14 @@ int main()
         }
     }
 
-    for (int x = 0; x < 9; x++)
+    /*for (int x = 0; x < 9; x++)
     {
         attron(COLOR_PAIR(pair[20][(x * 2) + 232]));
         printw("(%d,%d)", x, (x * 2) + 232); 
         addch(ACS_CKBOARD);
         attroff(COLOR_PAIR(pair[20][(x * 2) + 232]));
     
-    }
+    }*/
     refresh();
     
     getch();

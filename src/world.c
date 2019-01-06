@@ -4,8 +4,8 @@
 
 Level * generateWorld(Level * newLevel)
 {
-    newLevel->levelHeight = 40;
-    newLevel->levelWidth = 150;
+    newLevel->levelHeight = 500;
+    newLevel->levelWidth = 700;
 
     newLevel = gnerateBiome(newLevel);
 

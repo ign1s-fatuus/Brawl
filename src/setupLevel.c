@@ -30,6 +30,7 @@ Level * generateLevel(Level * newLevel, int levelNumber)
     //newLevel = generateTerrain(newLevel);
     newLevel = generateBar(newLevel);
     newLevel->levelMask = addBarMask(newLevel);
+    newLevel = getStartingPosition(newLevel);
     
     return newLevel;
 }
@@ -822,101 +823,42 @@ Level * popBiomeTerrain(int y, int x, char terrainType[6], Level * newLevel)
     }
 }
 
-Level * updateWorldTile(Level * newLevel)
+Level * getStartingPosition(Level * newLevel)
 {
+    int y, x, rndY, rndX;
 
-}
-
-
-/*Level * generateBiome(Level * newLevel)
-{
-    int i, y, x, rndY, rndX, counter, counterMax, rndDir, rndSeedPts;
-    counterMax = ((newLevel->biomeDensity * .01) * (newLevel->levelWidth * newLevel->levelHeight));
-    rndSeedPts = ((rand() % (newLevel->biomeMaxSeed - newLevel->biomeMinSeed + 1)) + newLevel->biomeMinSeed);
-    counter = 0;
-    // Seed pts for nadomization  
-    for(i =0; i < rndSeedPts; i++)
+    while (!(newLevel->drawWinCorner->y) && !(newLevel->drawWinCorner->x))
     {
-        rndY = (rand() % newLevel->levelHeight);
-        rndX = (rand() % newLevel->levelWidth);
-        //newLevel->levelMask[rndY][rndX].tileContents->envmnt = true;      //######## FIX THIS #########
-        newLevel = updateBiome(rndY, rndX, true, newLevel);
-    }
-    //  0 1 2
-    //  7 R 3
-    //  6 5 4
-    while (counter < counterMax)
-    {
-        for (y = 0; y < newLevel->levelHeight; y++)
+        rndY = rand() % newLevel->levelHeight;
+        rndX = rand() % newLevel->levelWidth;
+                
+        if ((rndY >= 0) && (rndY + newLevel->drawWinMaxY <= newLevel->levelHeight))
         {
-            for(x = 0; x < newLevel->levelWidth; x++)
+            if ((rndX >= 0) && (rndX + newLevel->drawWinMaxX <= newLevel->levelWidth))
             {
-                if (strcmp(newLevel->levelMask[y][x].world->maskID, "B") == 0)
+                newLevel->drawWinCorner->y = rndY;
+                newLevel->drawWinCorner->x = rndX;
+                for (y = 0; y < newLevel->drawWinMaxY; y++)
                 {
-                    rndDir = (rand() % 8);
-                    switch(rndDir)
+                    for (x = 0; x < newLevel->drawWinMaxX; x++)
                     {
-                        case 0:  
-                            if(((y - 1) >= 0) && ((x - 1 ) >= 0) && (strcmp(newLevel->levelMask[y - 1][x - 1].world->maskID, "B") != 0))
-                            {
-                                newLevel = updateBiome(y - 1, x - 1, true, newLevel);
-                                counter++;
-                            }
-                        case 1:
-                            if(((y - 1) >= 0) && (strcmp(newLevel->levelMask[y - 1][x].world->maskID, "B") != 0))
-                            {
-                                newLevel = updateBiome(y - 1, x, true, newLevel);
-                                counter++;
-                            }
-                            break;
-                        case 2:
-                            if(((y - 1) >= 0) && ((x + 1 ) <= newLevel->levelWidth) && (strcmp(newLevel->levelMask[y - 1][x + 1].world->maskID, "B") != 0))
-                            {
-                                newLevel = updateBiome(y - 1, x + 1, true, newLevel);
-                                counter++;
-                            }
-                            break;
-                        case 3:
-                            if(((x + 1 ) <= newLevel->levelWidth) && (strcmp(newLevel->levelMask[y][x + 1].world->maskID, "B") != 0))
-                            {
-                                newLevel = updateBiome(y, x + 1, true, newLevel);
-                                counter++;
-                            }
-                            break;
-                        case 4:
-                            if(((y + 1) <= newLevel->levelHeight) && ((x + 1 ) <= newLevel->levelWidth) && (strcmp(newLevel->levelMask[y + 1][x + 1].world->maskID, "B") != 0))
-                            {
-                                newLevel = updateBiome(y + 1, x + 1, true, newLevel);
-                                counter++;
-                            }
-                            break;
-                        case 5:
-                            if(((y + 1) >= newLevel->levelHeight) && (strcmp(newLevel->levelMask[y + 1][x].world->maskID, "B") != 0))
-                            {
-                                newLevel = updateBiome(y + 1, x, true, newLevel);
-                                counter++;
-                            }
-                            break;
-                        case 6:
-                            if(((y + 1) >= newLevel->levelHeight) && ((x - 1 ) >= 0) && (strcmp(newLevel->levelMask[y + 1][x - 1].world->maskID, "B") != 0))
-                            {
-                                newLevel = updateBiome(y + 1, x - 1, true, newLevel);
-                                counter++;
-                            }
-                            break;
-                        case 7:
-                            if(((x - 1 ) >= 0) && (strcmp(newLevel->levelMask[y][x - 1].world->maskID, "B") != 0))
-                            {
-                                newLevel = updateBiome(y, x - 1, true, newLevel);
-                                counter++;
-                            }
-                            break;
-                        default:
-                            break;
+                        newLevel->drawWindowCoords[y][x].y = y + newLevel->drawWinCorner->y;
+                        newLevel->drawWindowCoords[y][x].x = x + newLevel->drawWinCorner->x;
+                        //mvprintw(y, x, "%s", newLevel->levelMask[newLevel->drawWindowCoords[y][x].y][newLevel->drawWindowCoords[y][x].x].terrain->symbol);
                     }
                 }
+                
             }
         }
     }
+
+    rndY = rand() % newLevel->drawWinMaxY;
+    rndX = rand() % newLevel->drawWinMaxX;
+
+    newLevel->newPlayer->playerCoordinates.y = newLevel->drawWindowCoords[rndY][rndX].y;
+    newLevel->newPlayer->playerCoordinates.x = newLevel->drawWindowCoords[rndY][rndX].x;
+
+    newLevel->levelMask[newLevel->newPlayer->playerCoordinates.y][newLevel->newPlayer->playerCoordinates.x].tileContents->player = true;
+
     return newLevel;
-}*/
+}
