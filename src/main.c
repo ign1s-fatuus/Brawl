@@ -1,8 +1,4 @@
-//#include <ncurses.h>
-//#include <stdlib.h>
-//#include <string.h>
 #include "brawl.h"
-//#include <time.h>
 #include "level.h"
 #include "world.h"
 #include <unistd.h>
@@ -46,7 +42,7 @@ int main()
     getch();
 
     newLevel = generateLevel(newLevel, 1);
-    //newLevel->levelMask = createLevelMask(newLevel); 
+    //newLevel->levelMask = createLevelMask(newLevel);      --delete 
     
     newWindows = drawBorders(newWindows);
     newLevel = drawMapInWindow(newWindows, newLevel);
@@ -55,14 +51,14 @@ int main()
 
     //testPrintMask(newLevel);
     //getch();
-    //drawMap(newLevel);
+    //drawMap(newLevel);        --out-of-date 
     //getch();
 
     /* Game Loop  */
     int keyInput;
     while ((keyInput = getch()) != 'q')
     {
-        newLevel = handleInput(keyInput, newLevel);
+        newLevel = handleInput(keyInput, newWindows, newLevel);
         newLevel = drawMapInWindow(newWindows, newLevel);
         refreshWindows(newWindows);
     }
@@ -77,25 +73,14 @@ Level * allocateMemory(Level * newLevel)
 {
     int x, y;
     
-    //printw("%d, %d", newLevel->drawWinMaxY, newLevel->drawWinMaxX);
-    //getch();
-    
     newLevel->bar = malloc(sizeof(Bar));
     newLevel->newPlayer = malloc(sizeof(Player));
     newLevel->drawWinCorner =(Coordinates *)malloc(sizeof(Coordinates));
-    
-    //newLevel->newWindows = (Windows *)malloc(sizeof(Windows));
 
     newLevel->drawWindowCoords = (Coordinates **)malloc(sizeof(Coordinates) * newLevel->drawWinMaxY);
     for (y = 0; y < newLevel->drawWinMaxY; y++)
     {
         newLevel->drawWindowCoords[y] = (Coordinates *)malloc(sizeof(Coordinates) * newLevel->drawWinMaxX);
-        //for (x = 0; x < newLevel->drawWinMaxX; x++)
-        //{
-            //newLevel->drawWindowCoords[y][x].y = y;
-            //newLevel->drawWindowCoords[y][x].x = x;
-            //mvprintw(newLevel->drawWindowCoords[y][x].y, newLevel->drawWindowCoords[y][x].x, "1");
-        //}
     }
     
     newLevel->levelMask = (Tile **) malloc(sizeof(Tile) * newLevel->levelHeight);
@@ -111,7 +96,6 @@ Level * allocateMemory(Level * newLevel)
             newLevel->levelMask[y][x].lgObject = (LgObject *) malloc(sizeof(Terrain));
             newLevel->levelMask[y][x].smObject = (SmObject *) malloc(sizeof(Terrain));
             newLevel->levelMask[y][x].tileProperties = (TileProperties *) malloc(sizeof(TileProperties));
-            //strcpy(newLevel->levelMask[y][x].building->maskID, "e");
         }
     }
     return newLevel;
@@ -176,7 +160,6 @@ int testPrintMask(Level * newLevel)
         {
             mvprintw(y, x , "%s", newLevel->levelMask[y][x].world->maskID);
             mvprintw( y, x,"%s",newLevel->levelMask[y][x].building->maskID);
-            //getch();
         }
     }
     return 0;

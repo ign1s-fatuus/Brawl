@@ -215,7 +215,7 @@ typedef struct Tile
 
 /* Declaration of functions */
 Level * generateLevel(Level * newLevel, int levelNumber);
-Tile ** createLevelMask(Level * newLevel);
+//Tile ** createLevelMask(Level * newLevel);
 Level * generateBar(Level * newLevel);
 Level * generateBiome(Level * newLevel);
 Level * updateBiome(int y, int x, bool hasBiome, Level * newLevel);
@@ -245,5 +245,5 @@ Level * updateMapWindow(int moveDir, Level * newLevel);
 Level * setUpPlayer(Level * newLevel);
 
 /* movement functions -- move to own header file  */
-Level * handleInput(int keyPrss, Level * newLevel);
+Level * handleInput(int keyPrss, Windows * newWindows, Level * newLevel);
 #endif
