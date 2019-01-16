@@ -10,10 +10,10 @@ Level * updateTerrain(int y, int x, bool hasTerrain, int objectID, Level * newLe
         switch(objectID)
         {
             case 1001:
-                strcpy(newLevel->levelMask[y][x].terrain->name, "dirt");
+                //strcpy(newLevel->levelMask[y][x].terrain->name, "dirt");
                 newLevel->levelMask[y][x].terrain->objectID = 1001;
-                strcpy(newLevel->levelMask[y][x].terrain->description, "Add description");
-                strcpy(newLevel->levelMask[y][x].terrain->maskID, "d");
+                //strcpy(newLevel->levelMask[y][x].terrain->description, "Add description");
+                //strcpy(newLevel->levelMask[y][x].terrain->maskID, "d");
                 strcpy(newLevel->levelMask[y][x].terrain->symbol, ".");
                 strcpy(newLevel->levelMask[y][x].terrain->ACStype, "ACS_CKBOARD");
                 newLevel->levelMask[y][x].tileContents->terrain = true;
@@ -26,10 +26,10 @@ Level * updateTerrain(int y, int x, bool hasTerrain, int objectID, Level * newLe
                 newLevel->levelMask[y][x].terrain->fammable = false;
                 break;
             case 1002:
-                strcpy(newLevel->levelMask[y][x].terrain->name, "grass");
+                //strcpy(newLevel->levelMask[y][x].terrain->name, "grass");
                 newLevel->levelMask[y][x].terrain->objectID = 1001;
-                strcpy(newLevel->levelMask[y][x].terrain->description, "Add description");
-                strcpy(newLevel->levelMask[y][x].terrain->maskID, "g");
+                //strcpy(newLevel->levelMask[y][x].terrain->description, "Add description");
+                //strcpy(newLevel->levelMask[y][x].terrain->maskID, "g");
                 strcpy(newLevel->levelMask[y][x].terrain->symbol, ",");
                 strcpy(newLevel->levelMask[y][x].terrain->ACStype, "ACS_CKBOARD");
                 newLevel->levelMask[y][x].terrain->bold = true;
@@ -42,10 +42,10 @@ Level * updateTerrain(int y, int x, bool hasTerrain, int objectID, Level * newLe
                 newLevel->levelMask[y][x].terrain->fammable = false;
                 break;
             case 1003:
-                strcpy(newLevel->levelMask[y][x].terrain->name, "sand");
+                //strcpy(newLevel->levelMask[y][x].terrain->name, "sand");
                 newLevel->levelMask[y][x].terrain->objectID = 1003;
-                strcpy(newLevel->levelMask[y][x].terrain->description, "Add description");
-                strcpy(newLevel->levelMask[y][x].terrain->maskID, "s");
+                //strcpy(newLevel->levelMask[y][x].terrain->description, "Add description");
+                //strcpy(newLevel->levelMask[y][x].terrain->maskID, "s");
                 strcpy(newLevel->levelMask[y][x].terrain->symbol, ".");
                 strcpy(newLevel->levelMask[y][x].terrain->ACStype, "ACS_CKBOARD");
                 newLevel->levelMask[y][x].terrain->bold = true;
@@ -58,10 +58,10 @@ Level * updateTerrain(int y, int x, bool hasTerrain, int objectID, Level * newLe
                 newLevel->levelMask[y][x].terrain->fammable = false;
                 break;
             case 1004:
-                strcpy(newLevel->levelMask[y][x].terrain->name, "snow");
+                //strcpy(newLevel->levelMask[y][x].terrain->name, "snow");
                 newLevel->levelMask[y][x].terrain->objectID = 1004;
-                strcpy(newLevel->levelMask[y][x].terrain->description, "Add description");
-                strcpy(newLevel->levelMask[y][x].terrain->maskID, "o");
+                //strcpy(newLevel->levelMask[y][x].terrain->description, "Add description");
+                //strcpy(newLevel->levelMask[y][x].terrain->maskID, "o");
                 strcpy(newLevel->levelMask[y][x].terrain->symbol, "\u2745");
                 strcpy(newLevel->levelMask[y][x].terrain->ACStype, "none");
                 newLevel->levelMask[y][x].terrain->bold = true;
@@ -74,10 +74,10 @@ Level * updateTerrain(int y, int x, bool hasTerrain, int objectID, Level * newLe
                 newLevel->levelMask[y][x].terrain->fammable = false;
                 break;
             case 1005:
-                strcpy(newLevel->levelMask[y][x].terrain->name, "swamp");
+                //strcpy(newLevel->levelMask[y][x].terrain->name, "swamp");
                 newLevel->levelMask[y][x].terrain->objectID = 1005;
-                strcpy(newLevel->levelMask[y][x].terrain->description, "Add description");
-                strcpy(newLevel->levelMask[y][x].terrain->maskID, "w");
+                //strcpy(newLevel->levelMask[y][x].terrain->description, "Add description");
+                //strcpy(newLevel->levelMask[y][x].terrain->maskID, "w");
                 strcpy(newLevel->levelMask[y][x].terrain->symbol, ",");
                 strcpy(newLevel->levelMask[y][x].terrain->ACStype, "ACS_CKBOARD");
                 newLevel->levelMask[y][x].terrain->bold = true;
@@ -90,10 +90,10 @@ Level * updateTerrain(int y, int x, bool hasTerrain, int objectID, Level * newLe
                 newLevel->levelMask[y][x].terrain->fammable = false;
                 break;
             case 1006:
-                strcpy(newLevel->levelMask[y][x].terrain->name, "desert");
+                //strcpy(newLevel->levelMask[y][x].terrain->name, "desert");
                 newLevel->levelMask[y][x].terrain->objectID = 1006;
-                strcpy(newLevel->levelMask[y][x].terrain->description, "Add description");
-                strcpy(newLevel->levelMask[y][x].terrain->maskID, "D");
+                //strcpy(newLevel->levelMask[y][x].terrain->description, "Add description");
+                //strcpy(newLevel->levelMask[y][x].terrain->maskID, "D");
                 strcpy(newLevel->levelMask[y][x].terrain->ACStype, "ACS_CKBOARD");
                 strcpy(newLevel->levelMask[y][x].terrain->symbol, ".");
                 newLevel->levelMask[y][x].terrain->bold = true;
@@ -106,10 +106,10 @@ Level * updateTerrain(int y, int x, bool hasTerrain, int objectID, Level * newLe
                 newLevel->levelMask[y][x].terrain->fammable = false;
                 break;
             case 1007:
-                strcpy(newLevel->levelMask[y][x].terrain->name, "water");
+                //strcpy(newLevel->levelMask[y][x].terrain->name, "water");
                 newLevel->levelMask[y][x].terrain->objectID = 1007;
-                strcpy(newLevel->levelMask[y][x].terrain->description, "Add description");
-                strcpy(newLevel->levelMask[y][x].terrain->maskID, "~");
+                //strcpy(newLevel->levelMask[y][x].terrain->description, "Add description");
+                //strcpy(newLevel->levelMask[y][x].terrain->maskID, "~");
                 strcpy(newLevel->levelMask[y][x].terrain->symbol, "~");
                 strcpy(newLevel->levelMask[y][x].terrain->ACStype, "ACS_CKBOARD");
                 newLevel->levelMask[y][x].terrain->bold = false;
@@ -122,10 +122,10 @@ Level * updateTerrain(int y, int x, bool hasTerrain, int objectID, Level * newLe
                 newLevel->levelMask[y][x].terrain->fammable = false;
                 break;
             case 1008:
-                strcpy(newLevel->levelMask[y][x].terrain->name, "deep water");
+                //strcpy(newLevel->levelMask[y][x].terrain->name, "deep water");
                 newLevel->levelMask[y][x].terrain->objectID = 1008;
-                strcpy(newLevel->levelMask[y][x].terrain->description, "Add description");
-                strcpy(newLevel->levelMask[y][x].terrain->maskID, "~");
+                //strcpy(newLevel->levelMask[y][x].terrain->description, "Add description");
+                //strcpy(newLevel->levelMask[y][x].terrain->maskID, "~");
                 strcpy(newLevel->levelMask[y][x].terrain->symbol, "~");
                 strcpy(newLevel->levelMask[y][x].terrain->ACStype, "ACS_CKBOARD");
                 newLevel->levelMask[y][x].terrain->bold = false;
@@ -143,9 +143,9 @@ Level * updateTerrain(int y, int x, bool hasTerrain, int objectID, Level * newLe
     }
     else
     {
-        strcpy(newLevel->levelMask[y][x].terrain->name, "\0");
-        strcpy(newLevel->levelMask[y][x].terrain->description, "\0");
-        strcpy(newLevel->levelMask[y][x].terrain->maskID, "\0");
+        //strcpy(newLevel->levelMask[y][x].terrain->name, "\0");
+        //strcpy(newLevel->levelMask[y][x].terrain->description, "\0");
+        //strcpy(newLevel->levelMask[y][x].terrain->maskID, "\0");
         strcpy(newLevel->levelMask[y][x].terrain->symbol, "\0");
         newLevel->levelMask[y][x].tileContents->terrain = false;
         newLevel->levelMask[y][x].tileProperties->impass = false;

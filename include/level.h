@@ -24,15 +24,34 @@ typedef struct Level
     int levelBiomeID;       //0 = desert, 1 = forest, 2 = tundra, 3 = prarie; 4 = swamp; 5 = mountain
     int levelHeight;
     int levelWidth;
-    int barSize;            // 0 = small, 1 = medium, 2 = large --> size of bar building
-    int barClass;           // dive bar, biker bar, gay bar, etc.
-    int biomeDensity;
-    int biomeMinSeed;
-    int biomeMaxSeed;
-    int envPriTrnObjDensity;
-    int envSecTrnObjDensity;
-    int envPriTrnDensity;
-    int envSecTrnDensity;
+    char ** miniMap;
+    
+    int worldHeight;
+    int worldWidth;
+    int worldTileWidth;
+    int worldTileHeight;
+    double worldPerlinFreq;
+    double worldPerlinPersist;
+    struct WorldTiles ** worldTiles;
+
+    double desertPerlinFreq;
+    double desertPerlinPersist;
+    double prairiePerlinFreq;
+    double prairiePerlinPersist;
+    double swampPerlinFreq;
+    double swampPerlinPersist;
+    double mountainPerlinFreq;
+    double mountainPerlinPersist;
+    
+    //int barSize;            // 0 = small, 1 = medium, 2 = large --> size of bar building
+    //int barClass;           // dive bar, biker bar, gay bar, etc.
+    //int biomeDensity;
+    //int biomeMinSeed;
+    //int biomeMaxSeed;
+    //int envPriTrnObjDensity;
+    //int envSecTrnObjDensity;
+    //int envPriTrnDensity;
+    //int envSecTrnDensity;
     double perlinFreq;
     double perlinPersist;
     int cPal[256][256];
@@ -51,9 +70,9 @@ typedef struct Tile
     struct TileContents * tileContents;
     struct World * world;
     struct Terrain * terrain;
-    struct Building * building;
+    //struct Building * building;
     struct LgObject * lgObject;
-    struct SmObject * smObject;
+    //struct SmObject * smObject;
     struct TileProperties * tileProperties;
 } Tile;
 
@@ -68,24 +87,31 @@ typedef struct TileContents
     bool player;
     bool npc;
     bool lgObject;
-    bool smObject;
-    bool building;
+    //bool smObject;
+    //bool building;
     bool terrain;
 } TileContents;
 
 typedef struct World
 {
-    char biome[20];
-    char maskID[1];
+    //char biome[20];
+    //char maskID[1];
+    int biomeID;
     char terrain[20];
 } World;
 
+typedef struct WorldTiles
+{
+    int objectID;
+    int height;
+} WorldTiles;
+
 typedef struct Terrain
 {
-    char name[20];
-    char description[50];
+    //char name[20];
+    //char description[50];
     int objectID;
-    char maskID[1];
+    //char maskID[1];
     char ACStype[30];
     bool bold;
     bool dim;
@@ -100,9 +126,9 @@ typedef struct Terrain
 /* todo: add what replaced if destroyed -- i.e. tree -> stick  */
 typedef struct LgObject
 {
-    char name[20];
-    char description[50];
-    char maskID[1];
+    //char name[20];
+    //char description[50];
+    //char maskID[1];
     int objectID;
     char symbol[1];
     int symColor;       // should be an int.
@@ -111,7 +137,7 @@ typedef struct LgObject
     int speedMod;           // Maybe 1 to 10; 5 is narmal 
     int damage;          //i.e. toxic waste, etc.
     int storageCap;
-    int storedItems[10];
+    //int storedItems[10];      //dynamically allocate per storageCap
     int toughness;
     int maxHealth;
     int curHealth;
@@ -121,12 +147,12 @@ typedef struct LgObject
 
 } LgObject;
 
-/* todo: add used_as_weapon_damage  */
+/*
 typedef struct SmObject
 {
-    char name[20];
-    char description[50];
-    char maskID[1];
+    //char name[20];
+    //char description[50];
+    //char maskID[1];
     int objectID;
     char symbol[1];
     int symColor;       // should be an int.
@@ -144,7 +170,8 @@ typedef struct SmObject
     bool fammable;
 
 } SmObject;
-
+*/
+/*
 typedef struct Building
 {
     char name[20];
@@ -181,8 +208,8 @@ typedef struct Corner
     bool facingDirS;
     bool facingDirW;
 } Corner;
-
-
+*/
+/*
 typedef struct Bar
 {
     int barWallGravity;     // 0 = Top; 1 = Right; 2 = Bottom; 3 = Left
@@ -195,22 +222,6 @@ typedef struct Bar
     int buildingHeight;
     int buildingWidth;
 } Bar;
-
-/*
-typedef struct Tile
-{
-    char name[10];
-    char description[100];
-    char maskID[1];
-    char buildID[6];
-    char tileType[6];
-    char tileSubType[6];
-    char symbol[1];
-    char symbolDest[1];
-    int health;
-    bool destructable;
-    bool flammable;
-} Tile;
 */
 
 /* Declaration of functions */
@@ -219,7 +230,7 @@ Level * generateLevel(Level * newLevel, int levelNumber);
 Level * generateBar(Level * newLevel);
 Level * generateBiome(Level * newLevel);
 Level * updateBiome(int y, int x, bool hasBiome, Level * newLevel);
-Level * generateTerrain(Level * newLevel);
+//Level * generateTerrain(Level * newLevel);
 /* move to separate tile header file */
 Level * updateTerrain(int y, int x, bool hasTerrain, int objectID, Level * newLevel);
 Level * updateLgObject(int y, int x, bool hasLgObject, int objectID, Level * newLevel);
@@ -230,11 +241,12 @@ Level * weightedRandomTerrain(int y, int x, int wghtPercent, int defPercent, int
 Level * weightedRandomTerrainLlgObj(int y, int x, int wghtPercent, int defPercent, int terrainIdMatch, int objectTypeAdd, Level * newlevel);
 Level * weightedFractTerrainLlgObj(int y, int x, double wghtPercent, double defPercent, int terrainIdMatch, int objectTypeAdd, Level * newlevel);
 Level * getStartingPosition(Level * newLevel);
+Level * interpolateHightMap(Level * newLevel);
 /* Color functions -- move to own header file */
 Level * buildColorPalette(Level * newLevel);
 
 /* render and map draw function -- move to own header file  */
-int drawMap(Level * newLevel);
+//int drawMap(Level * newLevel);
 int drawMapElement(int y, int x, Level * newLevel);
 int drawMapElementInWindow(int y, int x, Windows * newWindows, Level * newLevel);
 int getBGColor(int y, int x, Level * newLevel);

@@ -6,5 +6,7 @@
 
 Level * generateWorld(Level * newLevel);
 Level * gnerateBiome(Level * newLevel);
+Level * generateWorldHeightMap(Level * newLevel);
+Level * generateMiniMap(Level * newLevel);
 
 #endif

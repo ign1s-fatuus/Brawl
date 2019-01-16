@@ -21,10 +21,8 @@ Level * updateMapWindow(int moveDir, Level * newLevel)
                 {
                     for (x = 0; x < newLevel->drawWinMaxX; x++)
                     {
-                        //mvprintw(2, newLevel->drawWinMaxX + 1, "corner.y: %d, corner.x: %d", newLevel->drawWinCorner->y, newLevel->drawWinCorner->x);
                         newLevel->drawWindowCoords[y][x].y = y + newLevel->drawWinCorner->y;
                         newLevel->drawWindowCoords[y][x].x = x + newLevel->drawWinCorner->x;
-                        //mvprintw(y, x, "%s", newLevel->levelMask[newLevel->drawWindowCoords[y][x].y][newLevel->drawWindowCoords[y][x].x].terrain->symbol);
                     }
                 }
             }
@@ -39,14 +37,12 @@ Level * updateMapWindow(int moveDir, Level * newLevel)
                     {
                         newLevel->drawWindowCoords[y][x].y = y + newLevel->drawWinCorner->y;
                         newLevel->drawWindowCoords[y][x].x = x + newLevel->drawWinCorner->x;
-                        //mvprintw(y, x, "%s", newLevel->levelMask[newLevel->drawWindowCoords[y][x].y][newLevel->drawWindowCoords[y][x].x].terrain->symbol);
-                        //mvprintw(2, newLevel->drawWinMaxX + 1, "corner.y: %d, corner.x: %d", newLevel->drawWinCorner->y, newLevel->drawWinCorner->x);
                     }
                 }
             }
             break;
         case 2:     //up-right
-            if (((newLevel->drawWinCorner->x + newLevel->drawWinMaxX +1) <= newLevel->levelWidth) && ((newLevel->drawWinCorner->y - 1) >= 0))
+            if (((newLevel->drawWinCorner->x + newLevel->drawWinMaxX +1) < newLevel->levelWidth) && ((newLevel->drawWinCorner->y - 1) >= 0))
             {
                 newLevel->drawWinCorner->y--;
                 newLevel->drawWinCorner->x++;
@@ -56,14 +52,12 @@ Level * updateMapWindow(int moveDir, Level * newLevel)
                     {
                         newLevel->drawWindowCoords[y][x].y = y + newLevel->drawWinCorner->y;
                         newLevel->drawWindowCoords[y][x].x = x + newLevel->drawWinCorner->x;
-                        //mvprintw(y, x, "%s", newLevel->levelMask[newLevel->drawWindowCoords[y][x].y][newLevel->drawWindowCoords[y][x].x].terrain->symbol);
-                        //mvprintw(2, newLevel->drawWinMaxX + 1, "corner.y: %d, corner.x: %d", newLevel->drawWinCorner->y, newLevel->drawWinCorner->x);
                     }
                 }
             }
             break;
         case 3:     //right
-            if (((newLevel->drawWinCorner->x + newLevel->drawWinMaxX +1) <= newLevel->levelWidth))
+            if (((newLevel->drawWinCorner->x + newLevel->drawWinMaxX +1) < newLevel->levelWidth))
             {
                 newLevel->drawWinCorner->x++;
                 for (y = 0; y < newLevel->drawWinMaxY; y++)
@@ -72,14 +66,12 @@ Level * updateMapWindow(int moveDir, Level * newLevel)
                     {
                         newLevel->drawWindowCoords[y][x].y = y + newLevel->drawWinCorner->y;
                         newLevel->drawWindowCoords[y][x].x = x + newLevel->drawWinCorner->x;
-                        //mvprintw(y, x, "%s", newLevel->levelMask[newLevel->drawWindowCoords[y][x].y][newLevel->drawWindowCoords[y][x].x].terrain->symbol);
-                        //mvprintw(2, newLevel->drawWinMaxX + 1, "corner.y: %d, corner.x: %d", newLevel->drawWinCorner->y, newLevel->drawWinCorner->x);
                     }
                 }
             }
             break;
         case 4:     //down-right
-            if (((newLevel->drawWinCorner->x + newLevel->drawWinMaxX + 1) <= newLevel->levelWidth) && ((newLevel->drawWinCorner->y + newLevel->drawWinMaxY  + 1) <= newLevel->levelHeight))
+            if (((newLevel->drawWinCorner->x + newLevel->drawWinMaxX + 1) < newLevel->levelWidth) && ((newLevel->drawWinCorner->y + newLevel->drawWinMaxY  + 1) < newLevel->levelHeight))
             {
                 newLevel->drawWinCorner->y++;
                 newLevel->drawWinCorner->x++;
@@ -89,14 +81,12 @@ Level * updateMapWindow(int moveDir, Level * newLevel)
                     {
                         newLevel->drawWindowCoords[y][x].y = y + newLevel->drawWinCorner->y;
                         newLevel->drawWindowCoords[y][x].x = x + newLevel->drawWinCorner->x;
-                        //mvprintw(y, x, "%s", newLevel->levelMask[newLevel->drawWindowCoords[y][x].y][newLevel->drawWindowCoords[y][x].x].terrain->symbol);
-                       // mvprintw(2, newLevel->drawWinMaxX + 1, "corner.y: %d, corner.x: %d", newLevel->drawWinCorner->y, newLevel->drawWinCorner->x);
                     }
                 }
             }
             break;
         case 5:     //down
-            if (((newLevel->drawWinCorner->y + newLevel->drawWinMaxY + 1) <= newLevel->levelHeight))
+            if (((newLevel->drawWinCorner->y + newLevel->drawWinMaxY + 1) < newLevel->levelHeight))
             {
                 newLevel->drawWinCorner->y++;
                 for (y = 0; y < newLevel->drawWinMaxY; y++)
@@ -105,14 +95,12 @@ Level * updateMapWindow(int moveDir, Level * newLevel)
                     {
                         newLevel->drawWindowCoords[y][x].y = y + newLevel->drawWinCorner->y;
                         newLevel->drawWindowCoords[y][x].x = x + newLevel->drawWinCorner->x;
-                        //mvprintw(y, x, "%s", newLevel->levelMask[newLevel->drawWindowCoords[y][x].y][newLevel->drawWindowCoords[y][x].x].terrain->symbol);
-                        //mvprintw(2, newLevel->drawWinMaxX + 1, "corner.y: %d, corner.x: %d", newLevel->drawWinCorner->y, newLevel->drawWinCorner->x);
                     }
                 }
             }
             break;
         case 6:     //down-left
-            if (((newLevel->drawWinCorner->x - 1) >= 0) && ((newLevel->drawWinCorner->y + newLevel->drawWinMaxY + 1) <= newLevel->levelHeight))
+            if (((newLevel->drawWinCorner->x - 1) >= 0) && ((newLevel->drawWinCorner->y + newLevel->drawWinMaxY + 1) < newLevel->levelHeight))
             {
                 newLevel->drawWinCorner->y++;
                 newLevel->drawWinCorner->x--;
@@ -122,8 +110,6 @@ Level * updateMapWindow(int moveDir, Level * newLevel)
                     {
                         newLevel->drawWindowCoords[y][x].y = y + newLevel->drawWinCorner->y;
                         newLevel->drawWindowCoords[y][x].x = x + newLevel->drawWinCorner->x;
-                        //mvprintw(y, x, "%s", newLevel->levelMask[newLevel->drawWindowCoords[y][x].y][newLevel->drawWindowCoords[y][x].x].terrain->symbol);
-                        //mvprintw(2, newLevel->drawWinMaxX + 1, "corner.y: %d, corner.x: %d", newLevel->drawWinCorner->y, newLevel->drawWinCorner->x);
                     }
                 }
             }
@@ -138,8 +124,6 @@ Level * updateMapWindow(int moveDir, Level * newLevel)
                     {
                         newLevel->drawWindowCoords[y][x].y = y + newLevel->drawWinCorner->y;
                         newLevel->drawWindowCoords[y][x].x = x + newLevel->drawWinCorner->x;
-                        //mvprintw(y, x, "%s", newLevel->levelMask[newLevel->drawWindowCoords[y][x].y][newLevel->drawWindowCoords[y][x].x].terrain->symbol);
-                        //mvprintw(2, newLevel->drawWinMaxX + 1, "corner.y: %d, corner.x: %d", newLevel->drawWinCorner->y, newLevel->drawWinCorner->x);
                     }
                 }
             }
@@ -154,13 +138,12 @@ Level * drawMapInWindow(Windows * newWindows, Level * newLevel)
     {
         for (int x = 0; x < newLevel->drawWinMaxX; x++)
         {
-            //mvwprintw(newWindows->mapWindow, y, x, "%s", newLevel->levelMask[newLevel->drawWindowCoords[y][x].y][newLevel->drawWindowCoords[y][x].x].terrain->symbol);
             drawMapElementInWindow(y, x, newWindows, newLevel);
         }
     }
     return newLevel;
 }
-
+/*
 int drawMap(Level * newLevel)
 {
     int y, x;
@@ -174,7 +157,7 @@ int drawMap(Level * newLevel)
         }
     return 0;
 }
-
+*/
 int drawMapElementInWindow(int y, int x, Windows * newWindows, Level * newLevel)
 {
     if (newLevel->levelMask[newLevel->drawWindowCoords[y][x].y][newLevel->drawWindowCoords[y][x].x].tileContents->player)
@@ -207,18 +190,6 @@ int drawMapElementInWindow(int y, int x, Windows * newWindows, Level * newLevel)
         wcolor_set(newWindows->mapWindow, newLevel->cPal[newLevel->levelMask[newLevel->drawWindowCoords[y][x].y][newLevel->drawWindowCoords[y][x].x].lgObject->symColor][getBGColor(newLevel->drawWindowCoords[y][x].y, newLevel->drawWindowCoords[y][x].x, newLevel)], NULL);
         mvwprintw(newWindows->mapWindow, y, x, "%s", newLevel->levelMask[newLevel->drawWindowCoords[y][x].y][newLevel->drawWindowCoords[y][x].x].lgObject->symbol);
     }
-    else if (newLevel->levelMask[newLevel->drawWindowCoords[y][x].y][newLevel->drawWindowCoords[y][x].x].tileContents->smObject)
-    {
-        if (newLevel->levelMask[newLevel->drawWindowCoords[y][x].y][newLevel->drawWindowCoords[y][x].x].smObject->bold)
-            attron(A_BOLD);
-        if (newLevel->levelMask[newLevel->drawWindowCoords[y][x].y][newLevel->drawWindowCoords[y][x].x].smObject->dim)
-            attron(A_DIM);
-        wcolor_set(newWindows->mapWindow, newLevel->cPal[newLevel->levelMask[newLevel->drawWindowCoords[y][x].y][newLevel->drawWindowCoords[y][x].x].smObject->symColor][(newLevel->levelMask[newLevel->drawWindowCoords[y][x].y][newLevel->drawWindowCoords[y][x].x].terrain->height * 2) + 232], NULL);
-        if (strcmp(newLevel->levelMask[newLevel->drawWindowCoords[y][x].y][newLevel->drawWindowCoords[y][x].x].terrain->ACStype, "ACS_CKBOARD") == 0)
-            mvaddch(newLevel->drawWindowCoords[y][x].y, newLevel->drawWindowCoords[y][x].x, ACS_CKBOARD);
-        else
-            mvwprintw(newWindows->mapWindow, y, x, "%s", newLevel->levelMask[y][x].smObject->symbol);
-    }
    /* else if (newLevel->levelMask[y][x].tileContents->building)
     {
         if (newLevel->levelMask[y][x].terrain->bold)
@@ -249,90 +220,10 @@ int drawMapElementInWindow(int y, int x, Windows * newWindows, Level * newLevel)
             mvwaddch(newWindows->mapWindow, y, x, ACS_CKBOARD);
         else
             mvwprintw(newWindows->mapWindow, y, x, "%s", newLevel->levelMask[newLevel->drawWindowCoords[y][x].y][newLevel->drawWindowCoords[y][x].x].terrain->symbol);
+            //mvwprintw(newWindows->mapWindow, y, x, "%d", newLevel->levelMask[newLevel->drawWindowCoords[y][x].y][newLevel->drawWindowCoords[y][x].x].terrain->height);
     }
     attroff(A_BOLD);
     attroff(A_DIM);
 
     return 0;
 }
-/*
-int drawMapElement(int y, int x, Level * newLevel)
-{
-    if (newLevel->levelMask[y][x].tileContents->player)
-    {
-        if (newLevel->levelMask[y][x].terrain->bold)
-            attron(A_BOLD);
-        if (newLevel->levelMask[y][x].terrain->dim)
-            attron(A_DIM);
-        color_set(newLevel->cPal[newLevel->newPlayer->playerColor][getBGColor(y, x, newLevel)], NULL);
-        mvprintw(y, x, "%s", newLevel->newPlayer->playerSymbol);
-    }
-    else if (newLevel->levelMask[y][x].tileContents->npc)
-    {
-        if (newLevel->levelMask[y][x].terrain->bold)
-            attron(A_BOLD);
-        if (newLevel->levelMask[y][x].terrain->dim)
-            attron(A_DIM);
-        color_set(newLevel->cPal[newLevel->levelMask[y][x].terrain->symColor][getBGColor(y, x, newLevel)], NULL);
-        if (strcmp(newLevel->levelMask[y][x].terrain->ACStype, "ACS_CKBOARD") == 0)
-            mvaddch(y, x, ACS_CKBOARD);
-        else
-            mvprintw(y, x, "%s", newLevel->levelMask[y][x].terrain->symbol);
-    }
-    else if (newLevel->levelMask[y][x].tileContents->lgObject)
-    {
-        if (newLevel->levelMask[y][x].lgObject->bold)
-            attron(A_BOLD);
-        if (newLevel->levelMask[y][x].lgObject->dim)
-            attron(A_DIM);
-        color_set(newLevel->cPal[newLevel->levelMask[y][x].lgObject->symColor][getBGColor(y, x, newLevel)], NULL);
-        mvprintw(y, x, "%s", newLevel->levelMask[y][x].lgObject->symbol);
-    }
-    else if (newLevel->levelMask[y][x].tileContents->smObject)
-    {
-        if (newLevel->levelMask[y][x].smObject->bold)
-            attron(A_BOLD);
-        if (newLevel->levelMask[y][x].smObject->dim)
-            attron(A_DIM);
-        color_set(newLevel->cPal[newLevel->levelMask[y][x].smObject->symColor][(newLevel->levelMask[y][x].terrain->height * 2) + 232], NULL);
-        if (strcmp(newLevel->levelMask[y][x].terrain->ACStype, "ACS_CKBOARD") == 0)
-            mvaddch(y, x, ACS_CKBOARD);
-        else
-            mvprintw(y, x, "%s", newLevel->levelMask[y][x].smObject->symbol);
-    }
-    else if (newLevel->levelMask[y][x].tileContents->building)
-    {
-        if (newLevel->levelMask[y][x].terrain->bold)
-            attron(A_BOLD);
-        if (newLevel->levelMask[y][x].terrain->dim)
-            attron(A_DIM);
-        color_set(newLevel->cPal[newLevel->levelMask[y][x].terrain->symColor][(newLevel->levelMask[y][x].terrain->height * 2) + 232], NULL);
-        if (strcmp(newLevel->levelMask[y][x].terrain->ACStype, "ACS_CKBOARD") == 0)
-            mvaddch(y, x, ACS_CKBOARD);
-        else
-            mvprintw(y, x, "%s", newLevel->levelMask[y][x].terrain->symbol);
-    }
-    else if (newLevel->levelMask[y][x].tileContents->terrain)
-    {
-        if (newLevel->levelMask[y][x].terrain->bold)
-            attron(A_BOLD);
-        if (newLevel->levelMask[y][x].terrain->dim)
-            attron(A_DIM);
-        if (strcmp(newLevel->levelMask[y][x].terrain->ACStype, "none") == 0)
-        {
-            color_set(newLevel->cPal[newLevel->levelMask[y][x].terrain->symColor][getBGColor(y, x, newLevel)], NULL);
-        }
-        else
-        {
-            color_set(newLevel->cPal[newLevel->levelMask[y][x].terrain->symColor][(newLevel->levelMask[y][x].terrain->height * 2) + 232], NULL);
-        }
-        if (strcmp(newLevel->levelMask[y][x].terrain->ACStype, "ACS_CKBOARD") == 0)
-            mvaddch(y, x, ACS_CKBOARD);
-        else
-            mvprintw(y, x, "%s", newLevel->levelMask[y][x].terrain->symbol);
-    }
-    attroff(A_BOLD);
-    attroff(A_DIM);
-
-    return 0;
-}*/

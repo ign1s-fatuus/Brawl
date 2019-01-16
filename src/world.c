@@ -1,128 +1,154 @@
 #include "brawl.h"
 #include "world.h"
 #include "level.h"
+#include "perlin.h"
 
 Level * generateWorld(Level * newLevel)
 {
-    newLevel->levelHeight = 500;
-    newLevel->levelWidth = 700;
+    //newLevel->levelHeight = 1000;
+    //newLevel->levelWidth = 1000;
+
+
+    newLevel->worldHeight = 15;
+    newLevel->worldWidth = 35;
+    newLevel->worldTileWidth = 100;
+    newLevel->worldTileHeight = 100;
+    newLevel->levelHeight = newLevel->worldHeight * newLevel->worldTileHeight;
+    newLevel->levelWidth = newLevel->worldWidth * newLevel->worldTileWidth;
+
+    newLevel->worldPerlinFreq = 0.008;
+    newLevel->worldPerlinPersist = 0.45;
 
     newLevel = gnerateBiome(newLevel);
 
     return newLevel;
 }
 
+Level * generateWorldHeightMap(Level * newLevel)
+{
+    int y, x;
+    double tempReturnVal;
+    int tempBiomeHeight;
+    //double ** tempArray; //[newLevel->worldHeight][newLevel->worldWidth];
+    int rndSeed = (rand() % (99999 + 1 - 10000) + 10000);
+    
+    clear();
+    //tempArray = (double **)malloc(sizeof(double) * newLevel->worldHeight);
+    for(y = 0; y < newLevel->levelHeight; y++) 
+    {
+        //tempArray[y] = (double *)malloc(sizeof(double) * newLevel->worldWidth);
+        for(x = 0; x < newLevel->levelWidth; x++) 
+        {
+            tempReturnVal = pnoise2d(x * newLevel->worldPerlinFreq, y * newLevel->worldPerlinFreq, newLevel->worldPerlinPersist, 8, rndSeed);
+            tempBiomeHeight = (int)((tempReturnVal + 1) * 4);
+            if(tempBiomeHeight < 0)
+                tempBiomeHeight = 0;
+            if(tempBiomeHeight > 9)
+                tempBiomeHeight = 9;
+            switch(tempBiomeHeight)
+            {
+                case 0 ... 1:
+                    newLevel->levelMask[y][x].world->biomeID = 4;   //swamp
+                    break;
+                case 2 ... 4:
+                    newLevel->levelMask[y][x].world->biomeID = 3;   //prairie
+                    break;
+                case 5 ... 6:
+                    newLevel->levelMask[y][x].world->biomeID = 0;   //desert
+                    break;
+                case 7 ... 9:
+                    newLevel->levelMask[y][x].world->biomeID = 5;   //Mountain
+                    break;
+            
+            }
+            //mvprintw(y, x, "%d", newLevel->levelMask[y][x].world->biomeID);
+            //getch();
+        }
+    }
+    //printw("\nWorld map genrated");
+    //getch();
+    //free(tempArray);
+    return newLevel;
+}
+
 Level * gnerateBiome(Level * newLevel)
 {
-    int rndBiome, biomeDensityMax, biomeDensityMin, biomeMinSeedMin, biomeMinSeedMax, biomeMaxSeedMin, biomeMaxSeedMax;
-    int envPriTrnObjMin, envPriTrnObjMax, envSecTrnObjMin, envSecTrnObjMax, envPriTrnMin, envPriTrnMax, envSecTrnMin, envSecTrnMax;
+    newLevel->desertPerlinFreq = 0.03;      //0.03
+    newLevel->desertPerlinPersist = 0.2;    //0,2
+    newLevel->prairiePerlinFreq = 0.02;     //0.02
+    newLevel->prairiePerlinPersist = 0.425; //0.425
+    newLevel->swampPerlinFreq = 0.07;       //0.07
+    newLevel->swampPerlinPersist = 0.625;   //0.225
+    newLevel->mountainPerlinFreq = 0.03;    //0.03
+    newLevel->mountainPerlinPersist = 0.7;  //0.7
 
-    biomeDensityMin = 40;
-    biomeDensityMax = 90;
-    biomeMinSeedMin = 5;
-    biomeMinSeedMax = 10;
-    biomeMaxSeedMin = 25;
-    biomeMaxSeedMax = 45;
-    
-    newLevel->biomeDensity = (rand() % (biomeDensityMax + 1 - biomeDensityMin) + biomeDensityMin);         
-    newLevel->biomeMinSeed = (rand() % (biomeMinSeedMax + 1 - biomeMinSeedMin) + biomeMinSeedMin);    
-    newLevel->biomeMaxSeed = (rand() % (biomeMaxSeedMax + 1 - biomeMaxSeedMin) + biomeMaxSeedMin);      
-    rndBiome = (rand() % 6);
+    return newLevel;
+}
 
-    switch(rndBiome)
+Level * generateMiniMap(Level * newLevel)
+{
+    int y, x, i, j;
+
+    clear();
+
+    newLevel->miniMap = malloc(sizeof(char *) * newLevel->worldHeight);
+    for (y = 0; y < newLevel->worldHeight; y++)
     {
-        case 0:
-            strcpy(newLevel->levelBiome, "desert");
-            newLevel->levelBiomeID = 0;
-            envPriTrnObjMin = 10;
-            envPriTrnObjMax = 30;
-            envSecTrnObjMin = 10;
-            envSecTrnObjMax = 20;
-            envPriTrnMin = 60;
-            envPriTrnMax = 70;
-            envSecTrnMin = 20;
-            envSecTrnMax = 30;
-            newLevel->perlinFreq = 0.03;
-            newLevel->perlinPersist = 0.2;
-            break;
-        case 1:
-            strcpy(newLevel->levelBiome, "forest");
-            newLevel->levelBiomeID = 1;
-            envPriTrnObjMin = 30;
-            envPriTrnObjMax = 60;
-            envSecTrnObjMin = 10;
-            envSecTrnObjMax = 20;
-            envPriTrnMin = 40;
-            envPriTrnMax = 60;
-            envSecTrnMin = 20;
-            envSecTrnMax = 40;
-            newLevel->perlinFreq = 0.025;
-            newLevel->perlinPersist = 0.4;
-            break;
-        case 2:
-            strcpy(newLevel->levelBiome, "tundra");
-            newLevel->levelBiomeID = 2;
-            envPriTrnObjMin = 10;
-            envPriTrnObjMax = 20;
-            envSecTrnObjMin = 10;
-            envSecTrnObjMax = 20;
-            envPriTrnMin = 50;
-            envPriTrnMax = 70;
-            envSecTrnMin = 20;
-            envSecTrnMax = 30;
-            newLevel->perlinFreq = 0.05;
-            newLevel->perlinPersist = 0.35;
-            break;
-        case 3:
-            strcpy(newLevel->levelBiome, "prairie");
-            newLevel->levelBiomeID = 3;
-            envPriTrnObjMin = 10;
-            envPriTrnObjMax = 20;
-            envSecTrnObjMin = 10;
-            envSecTrnObjMax = 20;
-            envPriTrnMin = 60;
-            envPriTrnMax = 70;
-            envSecTrnMin = 20;
-            envSecTrnMax = 30;
-            newLevel->perlinFreq = 0.02;
-            newLevel->perlinPersist = 0.425;
-            break;
-        case 4:
-            strcpy(newLevel->levelBiome, "swamp");
-            newLevel->levelBiomeID = 4;
-            envPriTrnObjMin = 10;
-            envPriTrnObjMax = 20;
-            envSecTrnObjMin = 10;
-            envSecTrnObjMax = 20;
-            envPriTrnMin = 30;
-            envPriTrnMax = 40;
-            envSecTrnMin = 40;
-            envSecTrnMax = 60;
-            newLevel->perlinFreq = 0.07;
-            newLevel->perlinPersist = 0.225;
-            break;
-        case 5:
-            strcpy(newLevel->levelBiome, "mountain");
-            newLevel->levelBiomeID = 5;
-            envPriTrnObjMin = 30;
-            envPriTrnObjMax = 40;
-            envSecTrnObjMin = 10;
-            envSecTrnObjMax = 20;
-            envPriTrnMin = 60;
-            envPriTrnMax = 70;
-            envSecTrnMin = 20;
-            envSecTrnMax = 30;
-            newLevel->perlinFreq = 0.03;
-            newLevel->perlinPersist = 0.7;
-            break;
-        default:
-            break;
+        newLevel->miniMap[y] = malloc(sizeof(char) * newLevel->worldWidth);
+        //for (x = 0; x < newLevel->worldWidth; x++)
+        //{
+           // newLevel->miniMap[y][x] = 'x';
+           // mvprintw(y, x, "%c", newLevel->miniMap[y][x]);
+        //}
     }
 
-    newLevel->envPriTrnObjDensity = (rand () % (envPriTrnObjMax + 1 - envPriTrnObjMin) + envPriTrnObjMin);
-    newLevel->envSecTrnObjDensity = (rand () % (envSecTrnObjMax + 1 - envSecTrnObjMin) + envSecTrnObjMin);
-    newLevel->envPriTrnDensity = (rand () % (envPriTrnMax + 1 - envPriTrnMin) + envPriTrnMin);
-    newLevel->envSecTrnDensity = (rand () % (envSecTrnMax + 1 - envSecTrnMin) + envSecTrnMin);
+    for (y = 0; y < newLevel->worldHeight; y++)
+    {
+        for (x = 0; x < newLevel->worldWidth; x++)
+        {
+            int countDesert = 0, countPrairie = 0, countSwamp = 0, countMountain = 0;
+            for (i = y * newLevel->worldTileHeight; i < (y * newLevel->worldTileHeight) + newLevel->worldTileHeight; i++)
+            {
+                for (j = x * newLevel->worldTileWidth; j < (x * newLevel->worldTileWidth) + newLevel->worldTileWidth; j++)
+                {
+                    //clear();
+                    //mvprintw(0, 100, "y is: %d, yMax is %d", y, newLevel->worldHeight);
+                    //mvprintw(1, 100, "x is: %d, xMax is %d", x, newLevel->worldWidth);
+                    //mvprintw(2, 100, "i is: %d, iMax is %d", i, y * newLevel->worldTileHeight + newLevel->worldTileHeight);
+                    //mvprintw(3, 100, "j is: %d, jMax is %d", j, x * newLevel->worldTileWidth + newLevel->worldTileWidth);
+                    switch (newLevel->levelMask[i][j].world->biomeID)
+                    {
+                        case 0:
+                            countDesert++;
+                            break;
+                        case 3:
+                            countPrairie++;
+                            break;
+                        case 4:
+                            countSwamp++;
+                            break;
+                        case 5:
+                            countMountain++;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            if ((countDesert > countPrairie) && (countDesert > countSwamp) && (countDesert > countMountain))
+                newLevel->miniMap[y][x] = 'D';
+            else if ((countPrairie > countDesert) && (countPrairie > countSwamp) && (countPrairie > countMountain))
+                newLevel->miniMap[y][x] = 'P';
+            else if ((countSwamp > countDesert) && (countSwamp > countPrairie) && (countSwamp > countMountain))
+                newLevel->miniMap[y][x] = 'S';
+            else if ((countMountain > countDesert) && (countMountain > countPrairie) && (countDesert > countSwamp))
+                newLevel->miniMap[y][x] = 'M';
+            else
+                newLevel->miniMap[y][x] = '?';
 
+            mvprintw(y, x,"%c", newLevel->miniMap[y][x]);
+            //getch();
+        }
+    }
     return newLevel;
 }
